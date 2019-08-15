@@ -4,11 +4,11 @@ import {
   Route, Link, Redirect, withRouter 
 } from 'react-router-dom'
 
-import Menu from './components/Menu'
 import AnecdoteList from './components/AnecdoteList'
 import About from './components/About'
 import Footer from './components/Footer'
 import CreateNew from './components/CreateNew'
+import Anecdote from './components/Anecdote'
 
 const App = () => {
   const [anecdotes, setAnecdotes] = useState([
@@ -63,7 +63,9 @@ const App = () => {
           </div>
           <Route exact path='/' render={() => <AnecdoteList anecdotes={anecdotes}/>} />
           <Route path='/create' render={() => <CreateNew addNew={addNew} />} />
-          <Route path='about' render={() => <About />} />
+          <Route path='/about' render={() => <About />} />
+          <Route path='/anecdotes/:id' render={({ match }) =>
+            <Anecdote anecdote={anecdoteById(match.params.id)}/>}/>
           <Footer />
         </div>
       </Router>
