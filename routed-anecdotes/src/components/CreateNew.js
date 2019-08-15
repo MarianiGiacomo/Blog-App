@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
+import { Redirect } from 'react-router-dom'
 
 const CreateNew = (props) => {
   const [content, setContent] = useState('')
   const [author, setAuthor] = useState('')
   const [info, setInfo] = useState('')
-
 
   const handleSubmit = (e) => {
     e.preventDefault()

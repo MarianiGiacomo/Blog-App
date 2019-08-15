@@ -27,14 +27,24 @@ const App = () => {
       id: '2'
     }
   ])
-
   const [notification, setNotification] = useState('')
+  const [submit, setSubmit] = useState(false)
 
   const padding = { padding: 5 }
+  const border = { 
+    border: 'solid 1px',
+    margin: 10,
+    padding: 5 
+  }
 
   const addNew = (anecdote) => {
     anecdote.id = (Math.random() * 10000).toFixed(0)
     setAnecdotes(anecdotes.concat(anecdote))
+    setNotification(`A new anecdote ${anecdote.content} created!`)
+    setSubmit(true)
+    setTimeout(() => {
+      setNotification('')
+      setSubmit(false)}, 3000)
   }
 
   const anecdoteById = (id) =>
@@ -61,8 +71,12 @@ const App = () => {
             <Link style={padding} to='/create'>create new</Link>
             <Link style={padding} to='/about'>about</Link>
           </div>
+          {notification ? <div style={border}>{notification}</div>
+            : null}
           <Route exact path='/' render={() => <AnecdoteList anecdotes={anecdotes}/>} />
-          <Route path='/create' render={() => <CreateNew addNew={addNew} />} />
+          <Route path='/create' render={() => 
+            submit ? <Redirect to='/'/>
+            : <CreateNew addNew={addNew} />} />
           <Route path='/about' render={() => <About />} />
           <Route path='/anecdotes/:id' render={({ match }) =>
             <Anecdote anecdote={anecdoteById(match.params.id)}/>}/>
