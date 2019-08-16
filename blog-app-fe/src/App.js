@@ -23,12 +23,9 @@ const App = () => {
   const name = useField('text')
   const number = useField('text')
   const [blogs, blogService] = useResource('/api/blogs')
-  const [persons, personService] = useResource('http://localhost:3005/persons')
 
   const fetchInitialData = async () => {
     const fetchedBlogs = await blogService.getAll()
-    const fetchedPersons = await personService.getAll()
-    personService.setInitial(fetchedPersons)
     blogService.setInitial(fetchedBlogs)
     const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser')
     if (loggedUserJSON) {
@@ -45,11 +42,6 @@ const App = () => {
   useEffect(() => {
     fetchInitialData()
   }, [])
-
-  const handlePersonSubmit = (event) => {
-    event.preventDefault()
-    personService.create(user, { name: name.value, number: number.value })
-  }
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -195,13 +187,6 @@ const App = () => {
               />
             )}
       </div>
-      <h2>Persons</h2>
-      <form onSubmit={handlePersonSubmit}>
-        name <input {...name} /> <br/>
-        number <input {...number} />
-        <button>create</button>
-      </form>
-      {persons.map(n => <p key={n.id}>{n.name} {n.number}</p>)}
     </div>
   )
 }
