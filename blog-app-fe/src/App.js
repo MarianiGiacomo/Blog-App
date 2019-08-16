@@ -1,5 +1,8 @@
 
 import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
+
+import { initializeBlogs } from './reducers/blogReducer'
 import styles from './style/styles'
 import loginService from './services/login'
 import Blog from './components/Blog'
@@ -161,7 +164,7 @@ const App = () => {
         <h2>Your blogs</h2>
         {
           userBlogs.length === 0?
-            <p>You don&apost have any blogs yet</p>
+            <p>You don't have any blogs yet</p>
             :userBlogs.sort((a, b) => a.likes - b.likes).map((blog, i) =>
               <Blog
                 key={i}
@@ -176,7 +179,7 @@ const App = () => {
         <h2>All blogs</h2>
         {
           blogs.length === 0?
-            <p>You don&apost have any blogs yet</p>
+            <p>You don't have any blogs yet</p>
             :blogs.sort((a, b) => a.likes - b.likes).map((blog, i) =>
               <Blog
                 key={i}
@@ -191,4 +194,7 @@ const App = () => {
   )
 }
 
-export default App
+export default connect(
+  null,
+  { initializeBlogs }
+)(App)
