@@ -3,8 +3,9 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import { initializeBlogs } from './reducers/blogReducer'
+import { setNotification } from './reducers/notificationReducer'
+import { setToken, setUser } from './reducers/loginReducer'
 import styles from './style/styles'
-import loginService from './services/login'
 import Blog from './components/Blog'
 import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
@@ -12,62 +13,33 @@ import BlogForm from './components/BlogForm'
 import Togglable from './components/Togglable'
 import { useField, useResource } from './hooks'
 
-const App = () => {
-  const [userBlogs, setUserBlogs] = useState([])
+const App = (props) => {
   const title = useField('text')
   const author = useField('text')
   const url = useField('text')
-  const [errorMessage, setErrorMessage] = useState(null)
-  const [message, setMessage] = useState(null)
-  const username = useField('text')
-  const password = useField('password')
-  const [user, setUser] = useState(null)
 
-  const name = useField('text')
-  const number = useField('text')
   const [blogs, blogService] = useResource('/api/blogs')
 
   const fetchInitialData = async () => {
-    const fetchedBlogs = await blogService.getAll()
-    blogService.setInitial(fetchedBlogs)
     const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser')
+    console.log('Loggedin user', loggedUserJSON);
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
-      blogService.setToken(user.token)
-      setUser(user)
-      const blogsToShow = fetchedBlogs.filter(blog =>
-        blog.user.username === user.username
-      )
-      setUserBlogs(blogsToShow)
+      props.setToken(user.token)
+      props.setUser(user)
+      props.initializeBlogs()
     }
   }
 
-  useEffect(() => {
+  const filterBlogs = (blogs, user) => {
+    return blogs.filter(blog =>
+      blog.user.username === user.username
+    )
+  }
+
+  useEffect(() => {    
     fetchInitialData()
   }, [])
-
-  const handleLogin = async (event) => {
-    event.preventDefault()
-    const credentials = {
-      username: username.value,
-      password: password.value,
-    }
-    try {
-      const user = await loginService.login(credentials)
-      window.localStorage.setItem(
-        'loggedBlogAppUser', JSON.stringify(user)
-      )
-      blogService.setToken(user.token)
-      setUser(user)
-      fetchInitialData()
-    } catch (exception) {
-      console.log('exception', exception)
-      setErrorMessage('wrong credentials')
-      setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000)
-    }
-  }
 
   const handleLogout = () => {
     window.localStorage.clear()
@@ -82,18 +54,18 @@ const App = () => {
       'url': url.value
     }
     try {
-      await blogService.create(user, newBlog)
-      setMessage(`A new blog ${newBlog.title} by ${newBlog.author} added`)
+      await blogService.create(props.user, newBlog)
+      props.setNotification({ message: `A new blog ${newBlog.title} by ${newBlog.author} added` })
       setTimeout(() => {
-        setMessage(null)
+        props.setNotification(null)
       }, 5000)
 
       fetchInitialData()
     } catch (exception) {
       console.log(exception.message)
-      setErrorMessage(`Could not add the blog: ${exception.message}`)
+      props.setNotification({ error: `Could not add the blog: ${exception.message}` })
       setTimeout(() => {
-        setErrorMessage(null)
+        props.setNotification(null)
       }, 5000)
     }
   }
@@ -112,41 +84,37 @@ const App = () => {
       return null
     }
     try {
-      await blogService.remove(user, blog.id)
-      setMessage(`Blog ${blog.title} by ${blog.author} removed`)
+      await blogService.remove(props.user, blog.id)
+      props.setNotification({ message: `Blog ${blog.title} by ${blog.author} removed` })
       setTimeout(() => {
-        setMessage(null)
+        props.setNotification(null)
       }, 5000)
       fetchInitialData()
     } catch (exception) {
       console.log(exception.message)
-      setErrorMessage(`Could not remove the blog: ${exception.message}`)
+      props.setNotification({ error: `Could not remove the blog: ${exception.message}` })
       setTimeout(() => {
-        setErrorMessage(null)
+        props.setNotification(null)
       }, 5000)
     }
   }
 
-  if (user === null) {
+  if (props.user === undefined) {
     return (
       <div>
-        <Notification message={message} error={errorMessage}/>
+        <Notification />
         <h2>Log in to application</h2>
-        <LoginForm
-          handleLogin={handleLogin}
-          username={username}
-          password={password}
-        />
+        <LoginForm />
       </div>
     )
   }
 
   return (
     <div className='loggedin-content'>
-      <Notification message={message} error={errorMessage}/>
+      <Notification />
       <h2>Blogs</h2>
       <div>
-        <p>{user.name} logged in
+        <p> { props.user.name } logged in
           <button onClick={handleLogout} style={styles.button}>Logout</button>
         </p>
       </div>
@@ -163,15 +131,15 @@ const App = () => {
       <div>
         <h2>Your blogs</h2>
         {
-          userBlogs.length === 0?
+          filterBlogs(props.blogs, props.user).length === 0?
             <p>You don't have any blogs yet</p>
-            :userBlogs.sort((a, b) => a.likes - b.likes).map((blog, i) =>
+            :filterBlogs(props.blogs, props.user).sort((a, b) => a.likes - b.likes).map((blog, i) =>
               <Blog
                 key={i}
                 blog={blog}
                 updateBlog={updateBlog}
                 removeBlog={removeBlog}
-                owner={blog.user.username === user.username}
+                owner={blog.user.username === props.user.username}
               />
             )}
       </div>
@@ -186,7 +154,7 @@ const App = () => {
                 blog={blog}
                 updateBlog={updateBlog}
                 removeBlog={removeBlog}
-                owner={blog.user.username === user.username}
+                owner={blog.user.username === props.user.username}
               />
             )}
       </div>
@@ -194,7 +162,19 @@ const App = () => {
   )
 }
 
+const mapStateToProps = (state) => {
+  return {
+    blogs: state.blogs,
+    user: state.login.user
+  }
+}
+
 export default connect(
-  null,
-  { initializeBlogs }
+  mapStateToProps,
+  { 
+    initializeBlogs, 
+    setToken,
+    setUser,
+    setNotification,
+  }
 )(App)
