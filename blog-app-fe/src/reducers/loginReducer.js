@@ -1,16 +1,20 @@
 import loginService from '../services/login'
 
-const loginReducer = (state = {}, action) => {
+const initialState = {
+  token: '',
+  username: '',
+  name: '',
+}
+
+const loginReducer = (state = initialState, action) => {
+  console.log('state now: ', state)
+  console.log('action', action)  
   switch (action.type) {
   case 'SET_TOKEN':
-    const token = `bearer ${action.data}`
+    const token = `bearer ${action.data}`    
     return { ...state, token: token }
   case 'SET_USER':
-    const user = { 
-      username: action.data.username,
-      name: action.data.name
-    }
-    return { ...state, user: user }
+    return { ...state, username: action.data.username, name: action.data.name }
   default:
     return state
   }

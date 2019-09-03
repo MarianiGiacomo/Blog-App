@@ -1,13 +1,32 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { useField } from '../hooks'
+
+import { createBlog } from '../reducers/blogReducer'
+import { setNotification } from '../reducers/notificationReducer'
 import sytles from '../style/styles'
 
-const BlogForm = ({
-  handleSubmit,
-  title,
-  author,
-  url,
-}) => {
+const BlogForm = (props) => {
+  const title = useField('text')
+  const author = useField('text')
+  const url = useField('text')
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    const newBlog = {
+      'title': title.value,
+      'author': author.value,
+      'url': url.value
+    }
+    try {
+      await props.createBlog(props.login.token, newBlog)
+      props.setNotification({ message: `A new blog ${newBlog.title} by ${newBlog.author} added` })
+    } catch (exception) {
+      console.log(exception.message)
+      props.setNotification({ error: `Could not add the blog: ${exception.message}` })
+    }
+  }
+
   return (
     <div>
       <h2>Add a new blog</h2>
@@ -39,11 +58,15 @@ const BlogForm = ({
   )
 }
 
-BlogForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  title: PropTypes.object.isRequired,
-  author: PropTypes.object.isRequired,
-  url: PropTypes.object.isRequired,
+const mapDispatchToProps = {
+  createBlog,
+  setNotification,
 }
 
-export default BlogForm
+const mapStateToProps = (state) => {
+  return {
+    login: state.login
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BlogForm)
