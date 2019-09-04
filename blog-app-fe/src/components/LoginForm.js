@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import { useField } from '../hooks'
 import loginService from '../services/login'
+import { initializeBlogs } from '../reducers/blogReducer'
 import { setToken, setUser } from '../reducers/loginReducer'
 import { setNotification } from '../reducers/notificationReducer'
 import sytles from '../style/styles'
@@ -24,11 +25,10 @@ const LoginForm = (props) => {
       )
       props.setToken(user.token)
       props.setUser(user)
+      props.initializeBlogs()
     } catch (exception) {
       console.log('exception', exception)
-      setNotification({ error: 'wrong credentials' })
-      setTimeout(() => {
-        setNotification({ error: '' })      }, 5000)
+      setNotification({ error: 'wrong credentials' }, 5)
     }
   }
 
@@ -50,13 +50,14 @@ const LoginForm = (props) => {
   )
 }
 
-
+const mapDispatchToProps =   {
+  initializeBlogs,
+  setNotification,
+  setToken,
+  setUser,
+}
 
 export default connect(
   null,
-  {
-    setNotification,
-    setToken,
-    setUser,
-  }
+  mapDispatchToProps
 )(LoginForm)

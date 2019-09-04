@@ -20,10 +20,10 @@ const BlogForm = (props) => {
     }
     try {
       await props.createBlog(props.login.token, newBlog)
-      props.setNotification({ message: `A new blog ${newBlog.title} by ${newBlog.author} added` })
+      props.setNotification({ message: `A new blog ${newBlog.title} by ${newBlog.author} added` }, 5)
     } catch (exception) {
       console.log(exception.message)
-      props.setNotification({ error: `Could not add the blog: ${exception.message}` })
+      props.setNotification({ error: `Could not add the blog: ${exception.message}` }, 5)
     }
   }
 
@@ -69,4 +69,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(BlogForm)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BlogForm)

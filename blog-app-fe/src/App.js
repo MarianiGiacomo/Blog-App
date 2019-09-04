@@ -5,7 +5,8 @@ import { connect } from 'react-redux'
 import { initializeBlogs } from './reducers/blogReducer'
 import { setNotification } from './reducers/notificationReducer'
 import { setToken, setUser } from './reducers/loginReducer'
-import styles from './style/styles'
+
+import Logout from './components/Logout'
 import BlogList from './components/BlogList'
 import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
@@ -29,12 +30,7 @@ const App = (props) => {
     fetchInitialData()
   }, [])
 
-  const handleLogout = () => {
-    window.localStorage.clear()
-    window.location.reload()
-  }
-
-  if (props.login.token === null) {
+  if (props.login.token === '') {
     return (
       <div>
         <Notification />
@@ -50,7 +46,7 @@ const App = (props) => {
       <h2>Blogs</h2>
       <div>
         <p> { props.login.name } logged in
-          <button onClick={handleLogout} style={styles.button}>Logout</button>
+          <Logout />
         </p>
       </div>
       <Togglable buttonLabel='New blog'>

@@ -40,8 +40,6 @@ const BlogList = (props) => {
   )
 }
 
-
-
 const mapStateToProps = (state) => {
   return {
     blogs: state.blogs,
@@ -49,4 +47,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, null)(BlogList)
+export default connect(
+  mapStateToProps,
+  null
+)(BlogList)

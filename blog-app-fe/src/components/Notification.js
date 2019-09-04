@@ -36,7 +36,6 @@ const Notification = (props) => {
     return null
   }
 
-
   if (!message && !error) {
     return null
   }
@@ -55,5 +54,6 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  null
 )(Notification)
