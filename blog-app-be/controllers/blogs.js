@@ -26,6 +26,7 @@ blogsRouter.post('/', async (request, response, next) => {
   } catch (error) {
     next(error);
     console.log(error);
+    return response.status(401).json({ error: error });
   }
 
   const blog = new Blog({ ...body, 'user': user.id });
@@ -82,7 +83,7 @@ blogsRouter.delete('/:id', async (request, response, next) => {
 blogsRouter.put('/:id', async (request, response, next) => {
   const body = request.body;
   try {
-    let blog = await Blog.findById(request.params.id);
+    let blog = await Blog.findById(request.params.id).populate('user', { username: 1, name: 1 });
     blog.title = body.title;
     blog.author = body.author;
     blog.likes = body.likes;
@@ -96,5 +97,3 @@ blogsRouter.put('/:id', async (request, response, next) => {
 });
 
 module.exports = blogsRouter;
-
-
