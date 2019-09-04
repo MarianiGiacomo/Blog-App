@@ -11,9 +11,9 @@ usersRouter.get('/', async (request, response) => {
   }
 });
 
-usersRouter.post('/', async (request, response) => {  
+usersRouter.post('/', async (request, response) => {
   try {
-    const body = request.body;    
+    const body = request.body;
     if(!body.name) {
       response.status(400).end('Name can not be empty');
     } else if(!body.username) {
