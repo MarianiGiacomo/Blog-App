@@ -3,7 +3,7 @@ const button = {
   padding: '1px',
 }
 
-const blog = {
+const tableList = {
   border: 'solid 2px grey',
   margin: '2px',
   paddingLeft: '1px',
@@ -11,5 +11,5 @@ const blog = {
 
 export default {
   button,
-  blog,
+  tableList,
 }

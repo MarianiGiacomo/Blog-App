@@ -7,7 +7,7 @@ const User = (props) => {
       null
     )
   }
-  
+
   return (
     <>
         <h2>{props.user.name}</h2>
