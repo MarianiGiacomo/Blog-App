@@ -1,26 +1,30 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
-import Blog from '../components/Blog'
+import styles from '../style/styles'
 
 const BlogList = (props) => {
   const { filterBlogs } = props
 
   if(filterBlogs) {
+    if(filterBlogs(props.blogs, props.login).length === 0){
+      return (
+        <p>You don't have any blogs yet</p>
+      )
+    }
     return (
       <div>
         <h2>Your blogs</h2>
-        {
-          filterBlogs(props.blogs, props.login).length === 0?
-            <p>You don't have any blogs yet</p>
-            :filterBlogs(props.blogs, props.login).sort((a, b) => a.likes - b.likes).map((blog, i) =>
-              <Blog
-                key={i}
-                blog={blog}
-                owner={blog.user.username === props.login.username}
-              />
-            )
-        }
+        <table style={styles.table}>
+          <tbody>
+            {filterBlogs(props.blogs, props.login).sort((a, b) => a.likes - b.likes).map((blog, i) =>
+              <tr key={i}>
+                <td style={styles.tableList}><Link to={`/blogs/${blog.id}`}>{blog.title}</Link></td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
     )
   }
@@ -28,14 +32,16 @@ const BlogList = (props) => {
   return (
     <div>
       <h2>All blogs</h2>
-      {
-        props.blogs.sort((a, b) => a.likes - b.likes).map((blog, i) =>
-          <Blog
-            key={i}
-            blog={blog}
-            owner={blog.user.username === props.login.username}
-          />)
-      }
+      <table style={styles.table}>
+        <tbody>
+          {
+            props.blogs.sort((a, b) => a.likes - b.likes).map((blog, i) =>
+              <tr key={i}>
+                <td style={styles.tableList}><Link to={`/blogs/${blog.id}`}>{blog.title}</Link></td>
+              </tr>
+            )}
+        </tbody>
+      </table>
     </div>
   )
 }

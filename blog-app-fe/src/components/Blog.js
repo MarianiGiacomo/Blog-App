@@ -1,14 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 
 import { likeBlog, removeBlog } from '../reducers/blogReducer'
 import { setNotification } from '../reducers/notificationReducer'
-import styles from '../style/styles'
-
 
 const Blog = (props) => {
-  const [show, setShow] = useState(false)  
-  const { blog, owner } = props
+  const { blog } = props
 
   const removeBlog = (blog) => {
     if(!window.confirm(`Do you want to remove the blog ${blog.title} by ${blog.author}?`)) {
@@ -23,28 +20,20 @@ const Blog = (props) => {
     }
   }
 
-  if (!show) {
-    return (
-      <div style={styles.blog}>
-        <div onClick={() => setShow(true)}>
-          {blog.title} {blog.author}
-        </div>
-      </div>
-    )
+  if(blog === undefined){
+    return null
   }
 
   return (
-    <div style={styles.blog}>
-      <div onClick={() => setShow(false)}>
-        {blog.title} by {blog.author}
-      </div>
+    <div>
+      <h2>{blog.title} by {blog.author}</h2>
       <a href={blog.url}>{blog.url}</a><br/>
       {blog.likes} likes
-      <button onClick={() => props.likeBlog(blog)} style={styles.button}>Like</button><br/>
+      <button onClick={() => props.likeBlog(blog)}>Like</button><br/>
       added by {blog.user.name}
       {
-        owner?
-          <div><button onClick={() => removeBlog(blog)} style={styles.button}>Remove</button></div>
+        props.login.username === blog.user.username?
+          <div><button onClick={() => removeBlog(blog)}>Remove</button></div>
           : <br />
       }
     </div>

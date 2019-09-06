@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { 
   BrowserRouter as Router,
-  Route, Link, Redirect, withRouter 
+  Route, Link, Redirect 
 } from 'react-router-dom'
 
 import AnecdoteList from './components/AnecdoteList'
