@@ -16,7 +16,7 @@ const BlogList = (props) => {
     return (
       <div>
         <h2>Your blogs</h2>
-        <table>
+        <table style={styles.table}>
           <tbody>
             {filterBlogs(props.blogs, props.login).sort((a, b) => a.likes - b.likes).map((blog, i) =>
               <tr key={i}>
@@ -32,7 +32,7 @@ const BlogList = (props) => {
   return (
     <div>
       <h2>All blogs</h2>
-      <table>
+      <table style={styles.table}>
         <tbody>
           {
             props.blogs.sort((a, b) => a.likes - b.likes).map((blog, i) =>

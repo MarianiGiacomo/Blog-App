@@ -8,7 +8,7 @@ const Users = (props) => {
   return (
     <div>
       <h2>Users</h2>
-      <table>
+      <table style={styles.table}>
         <tbody>
           <tr><th>Name</th><th>Blogs created</th></tr>
           { props.users.map((user, i) =>

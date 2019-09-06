@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { 
   BrowserRouter as Router,
-  Route, Redirect
+  Route, Redirect, Link
 } from 'react-router-dom'
 
 import { initializeBlogs } from './reducers/blogReducer'
@@ -20,6 +20,7 @@ import BlogForm from './components/BlogForm'
 import Blog from './components/Blog'
 import Togglable from './components/Togglable'
 import User from './components/User'
+import styles from './style/styles'
 
 const App = (props) => {
 
@@ -51,13 +52,14 @@ const App = (props) => {
   return (
     <div className='loggedin-content'>
       <Router>
+        <ul style={styles.navUl}>
+          <li style={styles.navLi}><Link to={'/'}>Blogs</Link></li>
+          <li style={styles.navLi}><Link to={'/users'}>Users</Link></li>
+          <li style={styles.navLi}>{props.login.name} logged in</li>
+          <li style={styles.navLi}><Logout /></li>
+        </ul>
         <Notification />
         <h2>Blogs</h2>
-        <div>
-          <p> { props.login.name } logged in
-            <Logout />
-          </p>
-        </div>
         <Route exact path='/' render={() => 
           <div>
             <Togglable buttonLabel='New blog'>
