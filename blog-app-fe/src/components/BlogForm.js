@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { useField } from '../hooks'
 import PropTypes from 'prop-types'
 
-import { initializeBlogs, createBlog } from '../reducers/blogReducer'
+import { createBlog } from '../reducers/blogReducer'
 import { setNotification } from '../reducers/notificationReducer'
 import styles from '../style/styles'
 

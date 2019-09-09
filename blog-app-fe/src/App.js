@@ -26,6 +26,7 @@ import styles from './style/styles'
 const App = (props) => {
   const {
     initializeBlogs,
+    getUsers,
     setToken,
     setUser,
     login,
@@ -39,6 +40,7 @@ const App = (props) => {
 
   useEffect(() => {
     initializeBlogs()
+    getUsers()
     const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
