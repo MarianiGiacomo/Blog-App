@@ -15,7 +15,7 @@ const tableList = {
 
 const navUl = {
   listStyleType: 'none',
-  margin: 0,
+  margin: 2,
   padding: 0,
   backgroundColor: 'lightGrey'
 }
@@ -25,10 +25,32 @@ const navLi = {
   margin: '0 5px'
 }
 
+const notificationError = {
+  color: 'red',
+  background: 'lightgrey',
+  fontSize: 20,
+  borderStyle: 'solid',
+  borderRadius: 5,
+  padding: 10,
+  marginBottom: 10,
+}
+
+const notificationMessage = {
+  color: 'green',
+  background: 'lightgrey',
+  fontSize: 20,
+  borderStyle: 'solid',
+  borderRadius: 5,
+  padding: 10,
+  marginBottom: 10,
+}
+
 export default {
   button,
   table,
   tableList,
   navUl,
   navLi,
+  notificationError,
+  notificationMessage,
 }

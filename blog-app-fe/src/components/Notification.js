@@ -1,26 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-
-const styleError = {
-  color: 'red',
-  background: 'lightgrey',
-  fontSize: 20,
-  borderStyle: 'solid',
-  borderRadius: 5,
-  padding: 10,
-  marginBottom: 10,
-}
-
-const styleMessage = {
-  color: 'green',
-  background: 'lightgrey',
-  fontSize: 20,
-  borderStyle: 'solid',
-  borderRadius: 5,
-  padding: 10,
-  marginBottom: 10,
-}
+import styles from '../style/styles'
 
 const Notification = (props) => {
 
@@ -29,9 +10,9 @@ const Notification = (props) => {
 
   const setStyle = () => {
     if (message){
-      return styleMessage
+      return styles.notificationMessage
     } else if (error){
-      return styleError
+      return styles.notificationError
     }
     return null
   }

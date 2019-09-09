@@ -1,10 +1,11 @@
 
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { 
+import {
   BrowserRouter as Router,
   Route, Redirect, Link
 } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 import { initializeBlogs } from './reducers/blogReducer'
 import { setNotification } from './reducers/notificationReducer'
@@ -23,23 +24,37 @@ import User from './components/User'
 import styles from './style/styles'
 
 const App = (props) => {
+  const {
+    initializeBlogs,
+    getUsers,
+    setToken,
+    setUser,
+    login,
+    users,
+    blogs,
+  } = props
 
-  const userById = (id) => props.users.find(u => u.id === id)
+  const userById = (id) => users.find(u => u.id === id)
 
-  const blogById = (id) => props.blogs.find(b => b.id === id)
+  const blogById = (id) => blogs.find(b => b.id === id)
 
   useEffect(() => {
+    initializeBlogs()
+    getUsers()
     const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
-      props.setToken(user.token)
-      props.setUser(user)
-      props.initializeBlogs()
-      props.getUsers()
+      setToken(user.token)
+      setUser(user)
     }
-  }, [])
+  }, [
+    initializeBlogs,
+    getUsers,
+    setToken,
+    setUser,
+  ])
 
-  if (props.login.token === '') {
+  if (login.token === '') {
     return (
       <div>
         <Notification />
@@ -55,12 +70,12 @@ const App = (props) => {
         <ul style={styles.navUl}>
           <li style={styles.navLi}><Link to={'/'}>Blogs</Link></li>
           <li style={styles.navLi}><Link to={'/users'}>Users</Link></li>
-          <li style={styles.navLi}>{props.login.name} logged in</li>
+          <li style={styles.navLi}>{login.name} logged in</li>
           <li style={styles.navLi}><Logout /></li>
         </ul>
         <Notification />
         <h2>Blogs</h2>
-        <Route exact path='/' render={() => 
+        <Route exact path='/' render={() =>
           <div>
             <Togglable buttonLabel='New blog'>
               <BlogForm />
@@ -83,8 +98,9 @@ const App = (props) => {
 }
 
 const filterBlogs = (blogs, user) => {
-  return blogs.filter(blog =>
-    blog.user.username === user.username
+  return blogs.filter(blog => {
+    return blog.user.username === user.username
+  }
   )
 }
 
@@ -102,6 +118,17 @@ const mapDispatchToProps = {
   setUser,
   setNotification,
   getUsers,
+}
+
+App.propsTypes = {
+  initializeBlogs: PropTypes.func.isRequired,
+  setToken: PropTypes.func.isRequired,
+  setUser: PropTypes.func.isRequired,
+  setNotification: PropTypes.func.isRequired,
+  getUsers: PropTypes.func.isRequired,
+  login: PropTypes.object.isRequired,
+  users: PropTypes.array.isRequired,
+  blogs: PropTypes.array.isRequired,
 }
 
 export default connect(

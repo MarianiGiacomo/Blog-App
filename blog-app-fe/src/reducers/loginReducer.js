@@ -1,5 +1,3 @@
-import loginService from '../services/login'
-
 const initialState = {
   token: '',
   username: '',
@@ -7,8 +5,6 @@ const initialState = {
 }
 
 const loginReducer = (state = initialState, action) => {
-  console.log('state now: ', state)
-  console.log('action', action)  
   switch (action.type) {
   case 'SET_TOKEN':
     const token = `bearer ${action.data}`    
