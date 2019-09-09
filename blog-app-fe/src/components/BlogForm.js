@@ -4,12 +4,13 @@ import { useField } from '../hooks'
 
 import { createBlog } from '../reducers/blogReducer'
 import { setNotification } from '../reducers/notificationReducer'
-import sytles from '../style/styles'
+import styles from '../style/styles'
 
 const BlogForm = (props) => {
   const title = useField('text')
   const author = useField('text')
   const url = useField('text')
+  const { login, createBlog, setNotification } = props
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -19,11 +20,11 @@ const BlogForm = (props) => {
       'url': url.value
     }
     try {
-      await props.createBlog(props.login.token, newBlog)
-      props.setNotification({ message: `A new blog ${newBlog.title} by ${newBlog.author} added` }, 5)
+      await createBlog(login.token, newBlog)
+      setNotification({ message: `A new blog ${newBlog.title} by ${newBlog.author} added` }, 3)
     } catch (exception) {
       console.log(exception.message)
-      props.setNotification({ error: `Could not add the blog: ${exception.message}` }, 5)
+      setNotification({ error: `Could not add the blog: ${exception.message}` }, 3)
     }
   }
 
@@ -52,7 +53,7 @@ const BlogForm = (props) => {
             {...url}
           />
         </div>
-        <button type='submit' style={sytles.button}>create</button>
+        <button type='submit' style={styles.button}>create</button>
       </form>
     </div>
   )

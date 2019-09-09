@@ -1,13 +1,11 @@
 import blogService from '../services/blogs'
 
 const blogReducer = (state = [], action) => {
-  console.log('state now: ', state)
-  console.log('action', action)
   switch (action.type) {
   case 'INIT_BLOGS':
     return action.data
   case 'NEW_BLOG':
-    return [ ...state, action.data ]
+    return state.concat(action.data)
   case 'LIKE':
     return state.map(blog =>
       blog.id !== action.data.id? blog : action.data

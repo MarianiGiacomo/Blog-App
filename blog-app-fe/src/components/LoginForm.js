@@ -6,7 +6,7 @@ import loginService from '../services/login'
 import { initializeBlogs } from '../reducers/blogReducer'
 import { setToken, setUser } from '../reducers/loginReducer'
 import { setNotification } from '../reducers/notificationReducer'
-import sytles from '../style/styles'
+import styles from '../style/styles'
 
 const LoginForm = (props) => {
   const username = useField('text')
@@ -44,7 +44,7 @@ const LoginForm = (props) => {
         password
           <input {...password} />
         </div>
-        <button type='submit' style={sytles.button}>Login</button>
+        <button type='submit' style={styles.button}>Login</button>
       </form>
     </div>
   )

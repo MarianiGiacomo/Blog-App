@@ -15,7 +15,7 @@ const tableList = {
 
 const navUl = {
   listStyleType: 'none',
-  margin: 0,
+  margin: 2,
   padding: 0,
   backgroundColor: 'lightGrey'
 }

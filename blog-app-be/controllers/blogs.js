@@ -1,6 +1,7 @@
 const blogsRouter = require('express').Router();
 const Blog = require('../models/blog');
 const User = require('../models/user');
+const Comment = require('../models/comment');
 const jwt = require('jsonwebtoken');
 
 
@@ -29,14 +30,14 @@ blogsRouter.post('/', async (request, response, next) => {
     return response.status(401).json({ error: error });
   }
 
-  const blog = new Blog({ ...body, 'user': user.id });
+  const blog = new Blog({ ...body, comments: [], 'user': user.id });
 
   if (!blog.title | !blog.url) {
     response.status(400).end();
   } else {
     blog.likes? true : blog.likes = 0;
     try {
-      const savedBlog = await blog.save();
+      const savedBlog = await Blog.find(await blog.save()).populate('user', { username: 1, name: 1 });
       user.blogs = user.blogs.concat(savedBlog._id);
       try {
         await user.save();
@@ -44,6 +45,7 @@ blogsRouter.post('/', async (request, response, next) => {
         console.log('Cant save user', error);
         response.status(403).end(error.message);
       }
+      
       response.status(201).json(savedBlog);
     } catch (error) {
       response.status(403).end(error.message);
@@ -93,6 +95,56 @@ blogsRouter.put('/:id', async (request, response, next) => {
   } catch (error) {
     next(error);
     console.log(error);
+  }
+});
+
+blogsRouter.get('/:id/comments', async (request, response, next) => {
+  try {
+    let blog = await Blog.findById(request.params.id)
+      .populate({ path: 'comments', populate: { path: 'user', select: 'name' } });    
+    response.json(blog.comments);
+  } catch (error) {
+    next(error);
+    console.log(error);
+  }
+});
+
+blogsRouter.post('/:id/comments', async (request, response, next) => {
+  const body = request.body;
+  let user = {};
+  let blog = {};
+  try {
+    const decodedToken = jwt.verify(request.token, process.env.SECRET);
+    if (!decodedToken.id) {
+      return response.status(401).json({ error: 'token missing or invalid' });
+    }
+    user = await User.findById(decodedToken.id);
+    blog = await Blog.findById(body.blog);
+  } catch (error) {
+    next(error);
+    console.log(error);
+    return response.status(401).json({ error: error });
+  }
+
+  const comment = new Comment({ ...body, 'user': user.id });
+
+  if(!comment.comment | !comment.blog){
+    response.status(400).end();
+  } else {
+    try {
+      const savedComment = await comment.save();
+      blog.comments = blog.comments.concat(savedComment.id);
+      try {
+        await blog.save();
+      } catch (error) {
+        console.log('Cant save blog', error);
+        response.status(403).end(error.message);
+      }
+      response.status(201).json(savedComment);
+    } catch (error) {
+      console.log('Cant save comment', error);
+      response.status(403).end(error.message);
+    }
   }
 });
 

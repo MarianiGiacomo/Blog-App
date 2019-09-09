@@ -83,8 +83,9 @@ const App = (props) => {
 }
 
 const filterBlogs = (blogs, user) => {
-  return blogs.filter(blog =>
-    blog.user.username === user.username
+  return blogs.filter(blog => {    
+    return blog.user.username === user.username
+  }
   )
 }
 
