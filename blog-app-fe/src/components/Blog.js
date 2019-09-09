@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 import { likeBlog, removeBlog } from '../reducers/blogReducer'
 import { setNotification } from '../reducers/notificationReducer'
@@ -11,7 +12,7 @@ import CommentForm from './CommentForm'
 
 const Blog = (props) => {
   const [removed, setRemoved] = useState(false)
-  const { blog } = props
+  const { blog, comments, login } = props
 
   const removeBlog = (blog) => {
     if(!window.confirm(`Do you want to remove the blog ${blog.title} by ${blog.author}?`)) {
@@ -35,12 +36,12 @@ const Blog = (props) => {
   return (
     <div>
       <h2>{blog.title} by {blog.author}</h2>
-      <a href={blog.url}>{blog.url}</a><br/>
+      <a href={blog.url} target='_blank' rel='noopener noreferrer' >{blog.url}</a><br/>
       {blog.likes} likes
       <button onClick={() => props.likeBlog(blog)}>Like</button><br/>
         added by {blog.user.name}
       {
-        props.login.username === blog.user.username?
+        login.username === blog.user.username?
           <div><button onClick={() => removeBlog(blog)}>Remove</button></div>
           : <br />
       }
@@ -50,9 +51,11 @@ const Blog = (props) => {
       </Toggable>
       <ul>
         {
-          props.comments.map((b,i) => 
-            <li key={i}>{b.comment}<br/>by {b.user.name} {b.timeStamp}</li>
-          )
+          comments.length?
+            comments.map((b,i) => 
+              <li key={i}>{b.comment}<br/>by {b.user.name} - {b.timeStamp}</li>
+            )
+            :<p>No comments yet</p>
         }
       </ul>
     </div>
@@ -71,6 +74,15 @@ const mapDispatchToProps = {
   removeBlog,
   setNotification,
   getBlogComments,
+}
+
+Blog.propTypes = {
+  login: PropTypes.object.isRequired,
+  comments: PropTypes.array.isRequired,
+  likeBlog: PropTypes.func.isRequired,
+  removeBlog: PropTypes.func.isRequired,
+  setNotification: PropTypes.func.isRequired,
+  getBlogComments: PropTypes.func.isRequired,
 }
 
 export default connect(

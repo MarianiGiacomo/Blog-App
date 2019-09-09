@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { useField } from '../hooks'
+import PropTypes from 'prop-types'
 
 import { addComment } from '../reducers/commentReducer'
 import { setNotification } from '../reducers/notificationReducer'
@@ -8,21 +9,21 @@ import styles from '../style/styles'
 
 const CommentForm = (props) => {
   const comment = useField('text')
-  const { login, blog, addComment, setNotification } = props
+  const { login, blog } = props
 
   const handleSubmit = async (event) => {
     event.preventDefault()
     const newComment = {
       comment: comment.value,
-      timeStamp: new Date(),
+      timeStamp: new Date().toDateString(),
       blog: blog.id
     }
     try {
-      await addComment(login.token, newComment)
-      setNotification({ message: `A new comment ${newComment.comment} added` }, 3)
+      await props.addComment(login.token, newComment)
+      props.setNotification({ message: `A new comment "${newComment.comment}" added` }, 3)
     } catch (exception) {
       console.log(exception.message)
-      setNotification({ error: `Could not add the comment: ${exception.message}` }, 3)
+      props.setNotification({ error: `Could not add the comment: ${exception.message}` }, 3)
     }
   }
 
@@ -51,6 +52,13 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   addComment,
   setNotification,
+}
+
+CommentForm.propTypes = {
+  login: PropTypes.object.isRequired,
+  blog: PropTypes.object.isRequired,
+  setNotification: PropTypes.func.isRequired,
+  addComment: PropTypes.func.isRequired,
 }
 
 export default connect(

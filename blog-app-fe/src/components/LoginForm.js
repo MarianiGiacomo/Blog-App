@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 import { useField } from '../hooks'
 import loginService from '../services/login'
@@ -28,7 +29,7 @@ const LoginForm = (props) => {
       props.initializeBlogs()
     } catch (exception) {
       console.log('exception', exception)
-      setNotification({ error: 'wrong credentials' }, 5)
+      props.setNotification({ error: 'wrong credentials' }, 5)
     }
   }
 
@@ -55,6 +56,13 @@ const mapDispatchToProps =   {
   setNotification,
   setToken,
   setUser,
+}
+
+LoginForm.propTypes = {
+  initializeBlogs: PropTypes.func.isRequired,
+  setNotification: PropTypes.func.isRequired,
+  setToken: PropTypes.func.isRequired,
+  setUser: PropTypes.func.isRequired,
 }
 
 export default connect(

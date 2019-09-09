@@ -32,12 +32,14 @@ blogsRouter.post('/', async (request, response, next) => {
 
   const blog = new Blog({ ...body, comments: [], 'user': user.id });
 
-  if (!blog.title | !blog.url) {
-    response.status(400).end();
+  if(!blog.title | !blog.url) {
+    response.status(400).end('Title and URL must be given');
+  } else if(blog.url.substring(0,11) !== 'http://www.' && blog.url.substring(0,12) !== 'https://www.'){
+    response.status(400).end('Wrong URL format');
   } else {
     blog.likes? true : blog.likes = 0;
     try {
-      const savedBlog = await Blog.find(await blog.save()).populate('user', { username: 1, name: 1 });
+      const savedBlog = await Blog.findOne(await blog.save()).populate('user', { username: 1, name: 1 });
       user.blogs = user.blogs.concat(savedBlog._id);
       try {
         await user.save();
@@ -45,13 +47,13 @@ blogsRouter.post('/', async (request, response, next) => {
         console.log('Cant save user', error);
         response.status(403).end(error.message);
       }
-      
       response.status(201).json(savedBlog);
     } catch (error) {
       response.status(403).end(error.message);
       console.log(error);
     }
   }
+
 });
 
 blogsRouter.delete('/:id', async (request, response, next) => {
@@ -70,8 +72,14 @@ blogsRouter.delete('/:id', async (request, response, next) => {
   let blog = {};
   try {
     blog = await Blog.findById(request.params.id);
-    if (blog.user.toString() === user.id.toString()) {
+    user.blogs = user.blogs.forEach(b => {
+      if(b.id !== blog.id){
+        return b;
+      }
+    });
+    if(blog.user.toString() === user.id.toString()) {
       blog.delete();
+      user.save();
       response.status(204).end();
     } else {
       response.status(403).end();

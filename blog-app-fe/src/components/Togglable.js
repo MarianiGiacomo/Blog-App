@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import styles from '../style/styles'
 
+import styles from '../style/styles'
 
 const Togglable = (props) => {
   const [visible, setVisible] = useState(false)
