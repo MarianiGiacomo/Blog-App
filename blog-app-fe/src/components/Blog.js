@@ -6,9 +6,10 @@ import PropTypes from 'prop-types'
 import { likeBlog, removeBlog } from '../reducers/blogReducer'
 import { setNotification } from '../reducers/notificationReducer'
 import { getBlogComments } from '../reducers/commentReducer'
-
+import styles from '../style/styles'
 import Toggable from './Togglable'
 import CommentForm from './CommentForm'
+import { Button, List } from 'semantic-ui-react'
 
 const Blog = (props) => {
   const [removed, setRemoved] = useState(false)
@@ -36,28 +37,42 @@ const Blog = (props) => {
   return (
     <div>
       <h2>{blog.title} by {blog.author}</h2>
-      <a href={blog.url} target='_blank' rel='noopener noreferrer' >{blog.url}</a><br/>
-      {blog.likes} likes
-      <button onClick={() => props.likeBlog(blog)}>Like</button><br/>
-        added by {blog.user.name}
+      <p><a href={blog.url} target='_blank' rel='noopener noreferrer' >{blog.url}</a></p>
+      <p>Likes: {blog.likes}</p>
+      <Button
+        onClick={() => props.likeBlog(blog)}
+        style={styles.button}
+      >Like
+      </Button>
+      <p>Added by {blog.user.name}</p>
       {
         login.username === blog.user.username?
-          <div><button onClick={() => removeBlog(blog)}>Remove</button></div>
+          <div>
+            <Button
+              onClick={() => removeBlog(blog)}
+              style={styles.button}
+            >Remove
+            </Button>
+          </div>
           : <br />
       }
-      <h3>Comments</h3>
       <Toggable buttonLabel='Add comment'>
         <CommentForm blog={blog}/>
       </Toggable>
-      <ul>
+      <h3>Comments</h3>
+      <List>
         {
           comments.length?
-            comments.map((b,i) => 
-              <li key={i}>{b.comment}<br/>by {b.user.name} - {b.timeStamp}</li>
+            comments.map((b,i) =>
+              <List.Item
+                key={i}
+                style={styles.listLi}
+              >{b.comment}<br/>by {b.user.name} - {b.timeStamp}
+              </List.Item>
             )
             :<p>No comments yet</p>
         }
-      </ul>
+      </List>
     </div>
   )
 }

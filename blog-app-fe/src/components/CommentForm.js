@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 
 import { addComment } from '../reducers/commentReducer'
 import { setNotification } from '../reducers/notificationReducer'
+import { Form, Button } from 'semantic-ui-react'
 import styles from '../style/styles'
 
 const CommentForm = (props) => {
@@ -29,16 +30,16 @@ const CommentForm = (props) => {
 
   return (
     <div>
-      <label htmlFor='comment'>Leave a comment:</label>
-      <form onSubmit={handleSubmit}>
-        <div>
+      <Form onSubmit={handleSubmit}>
+        <Form.Field>
+          <label htmlFor='comment'>Leave a comment:</label>
           <input
             id='comment'
             { ...comment }
           />
-        </div>
-        <button type='submit' style={styles.button}>Save</button>
-      </form>
+        </Form.Field>
+        <Button type='submit' style={styles.button}>Save</Button>
+      </Form>
     </div>
   )
 }

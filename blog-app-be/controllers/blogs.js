@@ -34,7 +34,7 @@ blogsRouter.post('/', async (request, response, next) => {
 
   if(!blog.title | !blog.url) {
     response.status(400).end('Title and URL must be given');
-  } else if(blog.url.substring(0,11) !== 'http://www.' && blog.url.substring(0,12) !== 'https://www.'){
+  } else if(blog.url.substring(0,7) !== 'http://' && blog.url.substring(0,8) !== 'https://'){
     response.status(400).end('Wrong URL format');
   } else {
     blog.likes? true : blog.likes = 0;
@@ -109,7 +109,7 @@ blogsRouter.put('/:id', async (request, response, next) => {
 blogsRouter.get('/:id/comments', async (request, response, next) => {
   try {
     let blog = await Blog.findById(request.params.id)
-      .populate({ path: 'comments', populate: { path: 'user', select: 'name' } });    
+      .populate({ path: 'comments', populate: { path: 'user', select: 'name' } });
     response.json(blog.comments);
   } catch (error) {
     next(error);

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 
 import { createBlog } from '../reducers/blogReducer'
 import { setNotification } from '../reducers/notificationReducer'
+import { Form, Button } from 'semantic-ui-react'
 import styles from '../style/styles'
 
 const BlogForm = (props) => {
@@ -16,7 +17,7 @@ const BlogForm = (props) => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     if(!checkUrl(url.value)){
-      props.setNotification({ error: 'Please use a valid URL as "https://www." or "http://www."' }, 3)
+      props.setNotification({ error: 'Please use a valid URL as "https://" or "http://"' }, 3)
       return null
     }
     const newBlog = {
@@ -36,30 +37,30 @@ const BlogForm = (props) => {
   return (
     <div>
       <h2>Add a new blog</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
+      <Form onSubmit={handleSubmit}>
+        <Form.Field>
           <label htmlFor='title'>Title:</label>
           <input
             id='title'
             {...title}
           />
-        </div>
-        <div>
+        </Form.Field>
+        <Form.Field>
           <label htmlFor='author'>Author:</label>
           <input
             id='author'
             {...author}
           />
-        </div>
-        <div>
+        </Form.Field>
+        <Form.Field>
           <label htmlFor='url'>URL:</label>
           <input
             id='url'
             {...url}
           />
-        </div>
-        <button type='submit' style={styles.button}>create</button>
-      </form>
+        </Form.Field>
+        <Button type='submit' style={styles.button}>Save</Button>
+      </Form>
     </div>
   )
 }
@@ -82,7 +83,7 @@ BlogForm.propTypes = {
 }
 
 const checkUrl = (url) => {
-  if(url.substring(0,11) === 'http://www.' | url.substring(0,12) === 'https://www.'){
+  if(url.substring(0,7) === 'http://' | url.substring(0,8) === 'https://'){
     return true
   }
   return false

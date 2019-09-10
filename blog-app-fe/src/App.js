@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import {
   BrowserRouter as Router,
-  Route, Redirect, Link
+  Route, Redirect
 } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
@@ -12,7 +12,8 @@ import { setNotification } from './reducers/notificationReducer'
 import { setToken, setUser } from './reducers/loginReducer'
 import { getUsers } from './reducers/usersReducer'
 
-import Logout from './components/Logout'
+import { Container } from 'semantic-ui-react'
+import Nav from './components/Nav'
 import UserList from './components/UserList'
 import BlogList from './components/BlogList'
 import Notification from './components/Notification'
@@ -21,7 +22,6 @@ import BlogForm from './components/BlogForm'
 import Blog from './components/Blog'
 import Togglable from './components/Togglable'
 import User from './components/User'
-import styles from './style/styles'
 
 const App = (props) => {
   const {
@@ -56,44 +56,41 @@ const App = (props) => {
 
   if (login.token === '') {
     return (
-      <div>
+      <Container>
         <Notification />
         <h2>Log in to application</h2>
         <LoginForm />
-      </div>
+      </Container>
     )
   }
 
   return (
-    <div className='loggedin-content'>
-      <Router>
-        <ul style={styles.navUl}>
-          <li style={styles.navLi}><Link to={'/'}>Blogs</Link></li>
-          <li style={styles.navLi}><Link to={'/users'}>Users</Link></li>
-          <li style={styles.navLi}>{login.name} logged in</li>
-          <li style={styles.navLi}><Logout /></li>
-        </ul>
-        <Notification />
-        <h2>Blogs</h2>
-        <Route exact path='/' render={() =>
-          <div>
-            <Togglable buttonLabel='New blog'>
-              <BlogForm />
-            </Togglable>
-            <BlogList filterBlogs={filterBlogs}/>
-            <BlogList />
-          </div>
-        }/>
-        <Route path='/blogs/:id' render={({ match }) =>
-          <Blog blog={blogById(match.params.id)} />} />
-        <Route exact path='(/blogs)' render={() => <Redirect to='/'/>} />
-        <Route exact path='(/blogs/)' render={() => <Redirect to='/'/>} />
-        <Route path='/users/:id' render={({ match }) =>
-          <User user={userById(match.params.id)}/>} />
-        <Route exact path='/users/)' render={() => <Redirect to='/users'/>} />
-        <Route exact path='/users' render={() => <UserList />} />
-      </Router>
-    </div>
+    <Container>
+      <div className='loggedin-content'>
+        <Router>
+          <Nav username={login.username} />
+          <Notification />
+          <h2>Blogs</h2>
+          <Route exact path='/' render={() =>
+            <div>
+              <Togglable buttonLabel='New blog'>
+                <BlogForm />
+              </Togglable>
+              <BlogList filterBlogs={filterBlogs}/>
+              <BlogList />
+            </div>
+          }/>
+          <Route path='/blogs/:id' render={({ match }) =>
+            <Blog blog={blogById(match.params.id)} />} />
+          <Route exact path='(/blogs)' render={() => <Redirect to='/'/>} />
+          <Route exact path='(/blogs/)' render={() => <Redirect to='/'/>} />
+          <Route path='/users/:id' render={({ match }) =>
+            <User user={userById(match.params.id)}/>} />
+          <Route exact path='/users/)' render={() => <Redirect to='/users'/>} />
+          <Route exact path='/users' render={() => <UserList />} />
+        </Router>
+      </div>
+    </Container>
   )
 }
 
