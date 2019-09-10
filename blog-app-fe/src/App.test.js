@@ -1,18 +1,29 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import { render, cleanup, waitForElement } from '@testing-library/react'
+import { Provider } from 'react-redux'
+
+import store from './store'
+import App from './App'
+
 jest.mock('./services/blogs')
 jest.mock('./hooks')
-import App from './App'
 
 afterEach(cleanup)
 
 describe('<App />', () => {
   test('if no user logged, blogs are not shown', async () => {
     const component = render(
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     )
 
-    component.rerender(<App />)
+    component.rerender(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    )
     await waitForElement(
       () => component.container.querySelector('.login-form')
     )
@@ -30,10 +41,16 @@ describe('<App />', () => {
     window.localStorage.setItem('loggedBlogAppUser', JSON.stringify(user))
 
     const component = render(
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     )
 
-    component.rerender(<App />)
+    component.rerender(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    )
     await waitForElement(
       () => component.container.querySelector('.loggedin-content')
     )
