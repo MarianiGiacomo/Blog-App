@@ -1,12 +1,13 @@
 import React from 'react'
 
+import { Button } from 'semantic-ui-react'
 import styles from '../style/styles'
 
 
 const Logout = () => {
   return (
     <>
-      <button onClick={handleLogout} style={styles.button}>Logout</button>
+      <Button onClick={handleLogout} style={styles.button}>Logout</Button>
     </>
   )
 }

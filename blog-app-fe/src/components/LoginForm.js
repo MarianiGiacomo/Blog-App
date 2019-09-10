@@ -7,6 +7,8 @@ import loginService from '../services/login'
 import { initializeBlogs } from '../reducers/blogReducer'
 import { setToken, setUser } from '../reducers/loginReducer'
 import { setNotification } from '../reducers/notificationReducer'
+
+import { Form, Button } from 'semantic-ui-react'
 import styles from '../style/styles'
 
 const LoginForm = (props) => {
@@ -36,17 +38,23 @@ const LoginForm = (props) => {
   return (
     <div>
       <h2>Login</h2>
-      <form onSubmit={handleLogin} className='login-form'>
-        <div>
-        username
-          <input {...username} />
-        </div>
-        <div>
-        password
-          <input {...password} />
-        </div>
-        <button type='submit' style={styles.button}>Login</button>
-      </form>
+      <Form onSubmit={handleLogin} className='login-form'>
+        <Form.Field>
+          <label htmlFor='username'>username</label>
+          <input
+            id='username'
+            {...username}
+          />
+        </Form.Field>
+        <Form.Field>
+          <label htmlFor='password'>password</label>
+          <input
+            id='password'
+            {...password}
+          />
+        </Form.Field>
+        <Button type='submit' style={styles.button}>Login</Button>
+      </Form>
     </div>
   )
 }

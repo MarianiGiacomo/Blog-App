@@ -1,10 +1,9 @@
 const button = {
-  margin: '2px',
-  padding: '1px',
+  margin: '0px 2px 8px 0px',
 }
 
 const table = {
-  width: '100%',
+  marginBottom: '14px'
 }
 
 const tableList = {
@@ -14,15 +13,12 @@ const tableList = {
 }
 
 const navUl = {
-  listStyleType: 'none',
-  margin: 2,
-  padding: 0,
+  marginTop: '2px',
   backgroundColor: 'lightGrey'
 }
 
-const navLi = {
-  display: 'inline',
-  margin: '0 5px'
+const listLi = {
+  margin: '5px 0'
 }
 
 const notificationError = {
@@ -50,7 +46,7 @@ export default {
   table,
   tableList,
   navUl,
-  navLi,
+  listLi,
   notificationError,
   notificationMessage,
 }

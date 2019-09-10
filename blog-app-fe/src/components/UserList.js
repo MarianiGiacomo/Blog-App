@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
+import { Table } from 'semantic-ui-react'
 import styles from '../style/styles'
 import { getUsers } from '../reducers/usersReducer'
 
@@ -16,17 +17,25 @@ const UserList = (props) => {
   return (
     <div>
       <h2>Users</h2>
-      <table style={styles.table}>
-        <tbody>
-          <tr><th>Name</th><th>Blogs created</th></tr>
+      <Table striped celled style={styles.table}>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell>Name</Table.HeaderCell>
+            <Table.HeaderCell>Blogs created</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+
+        <Table.Body>
           { users.map((user, i) =>
-            <tr key={i}>
-              <td style={styles.tableList}><Link to={`/users/${user.id}`}>{user.name}</Link></td>
-              <td style={styles.tableList}>{user.blogs.length}</td>
-            </tr>
+            <Table.Row key={i}>
+              <Table.Cell>
+                <Link to={`/users/${user.id}`}>{user.name}</Link>
+              </Table.Cell>
+              <Table.Cell>{user.blogs.length}</Table.Cell>
+            </Table.Row>
           )}
-        </tbody>
-      </table>
+        </Table.Body>
+      </Table>
     </div>
   )
 }

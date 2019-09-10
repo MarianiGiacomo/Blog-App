@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import { Table } from 'semantic-ui-react'
 
 import styles from '../style/styles'
 
@@ -20,15 +21,17 @@ const BlogList = (props) => {
     return (
       <div>
         <h2>Your blogs</h2>
-        <table style={styles.table}>
-          <tbody>
+        <Table striped celled style={styles.table}>
+          <Table.Body>
             {props.filterBlogs(blogs, login).sort((a, b) => a.likes - b.likes).map((blog, i) =>
-              <tr key={i}>
-                <td style={styles.tableList}><Link to={`/blogs/${blog.id}`}>{blog.title}</Link></td>
-              </tr>
+              <Table.Row key={i}>
+                <Table.Cell>
+                  <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
+                </Table.Cell>
+              </Table.Row>
             )}
-          </tbody>
-        </table>
+          </Table.Body>
+        </Table>
       </div>
     )
   }
@@ -44,16 +47,18 @@ const BlogList = (props) => {
   return (
     <div>
       <h2>All blogs</h2>
-      <table style={styles.table}>
-        <tbody>
+      <Table striped celled style={styles.table}>
+        <Table.Body>
           {
             blogs.sort((a, b) => a.likes - b.likes).map((blog, i) =>
-              <tr key={i}>
-                <td style={styles.tableList}><Link to={`/blogs/${blog.id}`}>{blog.title}</Link></td>
-              </tr>
+              <Table.Row key={i}>
+                <Table.Cell>
+                  <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
+                </Table.Cell>
+              </Table.Row>
             )}
-        </tbody>
-      </table>
+        </Table.Body>
+      </Table>
     </div>
   )
 }
