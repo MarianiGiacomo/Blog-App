@@ -16,7 +16,7 @@ const UserList = (props) => {
 
   return (
     <div>
-      <h2>Users</h2>
+      <h1>Users</h1>
       <Table striped celled style={styles.table}>
         <Table.Header>
           <Table.Row>

@@ -60,7 +60,7 @@ const Blog = (props) => {
         <CommentForm blog={blog}/>
       </Toggable>
       <h3>Comments</h3>
-      <List>
+      <List divided relaxed>
         {
           comments.length?
             comments.map((b,i) =>

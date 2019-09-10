@@ -32,14 +32,10 @@ const blogs = [
   },
 ]
 
-let token = ''
-
 const getAll = () => {
   return Promise.resolve(blogs)
 }
 
-const setToken = () => {
-  token = 'token'
-}
+const setToken = () => 'token'
 
 export default { getAll, setToken }

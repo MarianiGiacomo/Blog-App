@@ -48,14 +48,10 @@ export const useField = (type) => {
   }
 }
 
-export const useResource = (baseUrl) => {
+export const useResource = () => {
   const [resources, setResources] = useState([])
 
-  let token = null
-
-  const setToken = newToken => {
-    token = 'token'
-  }
+  const setToken = () => 'token'
 
   const setInitial = initialArray => {
     setResources(initialArray)

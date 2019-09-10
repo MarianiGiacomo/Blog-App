@@ -27,6 +27,9 @@ const BlogForm = (props) => {
     }
     try {
       await props.createBlog(login.token, newBlog)
+      title.setValue('')
+      author.setValue('')
+      url.setValue('')
       props.setNotification({ message: `A new blog "${newBlog.title} by ${newBlog.author}" added` }, 3)
     } catch (exception) {
       console.log(exception.message)
@@ -42,21 +45,27 @@ const BlogForm = (props) => {
           <label htmlFor='title'>Title:</label>
           <input
             id='title'
-            {...title}
+            type={title.type}
+            value={title.value}
+            onChange={title.onChange}
           />
         </Form.Field>
         <Form.Field>
           <label htmlFor='author'>Author:</label>
           <input
             id='author'
-            {...author}
+            type={author.type}
+            value={author.value}
+            onChange={author.onChange}
           />
         </Form.Field>
         <Form.Field>
           <label htmlFor='url'>URL:</label>
           <input
             id='url'
-            {...url}
+            type={url.type}
+            value={url.value}
+            onChange={url.onChange}
           />
         </Form.Field>
         <Button type='submit' style={styles.button}>Save</Button>

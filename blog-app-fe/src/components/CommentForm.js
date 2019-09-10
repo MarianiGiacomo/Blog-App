@@ -22,6 +22,7 @@ const CommentForm = (props) => {
     try {
       await props.addComment(login.token, newComment)
       props.setNotification({ message: `A new comment "${newComment.comment}" added` }, 3)
+      comment.setValue('')
     } catch (exception) {
       console.log(exception.message)
       props.setNotification({ error: `Could not add the comment: ${exception.message}` }, 3)
@@ -35,7 +36,9 @@ const CommentForm = (props) => {
           <label htmlFor='comment'>Leave a comment:</label>
           <input
             id='comment'
-            { ...comment }
+            type={comment.type}
+            value={comment.value}
+            onChange={comment.onChange}
           />
         </Form.Field>
         <Button type='submit' style={styles.button}>Save</Button>

@@ -30,6 +30,8 @@ const LoginForm = (props) => {
       props.setUser(user)
       props.initializeBlogs()
     } catch (exception) {
+      username.setValue('')
+      password.setValue('')
       console.log('exception', exception)
       props.setNotification({ error: 'wrong credentials' }, 5)
     }
@@ -43,14 +45,18 @@ const LoginForm = (props) => {
           <label htmlFor='username'>username</label>
           <input
             id='username'
-            {...username}
+            type={username.type}
+            value={username.value}
+            onChange={username.onChange}
           />
         </Form.Field>
         <Form.Field>
           <label htmlFor='password'>password</label>
           <input
             id='password'
-            {...password}
+            type={password.type}
+            value={password.value}
+            onChange={password.onChange}
           />
         </Form.Field>
         <Button type='submit' style={styles.button}>Login</Button>

@@ -1,9 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const User = (props) => {
+import { List } from 'semantic-ui-react'
+import styles from '../style/styles'
 
-  if(props.user === undefined) {
+const User = (props) => {
+  const { user } = props
+
+  if(user === undefined) {
     return (
       null
     )
@@ -11,7 +15,21 @@ const User = (props) => {
 
   return (
     <>
-        <h2>{props.user.name}</h2>
+      <h2>{user.name}</h2>
+      <h3>Blogs</h3>
+      <List divided relaxed>
+        {
+          user.blogs.length?
+            user.blogs.map((b,i) =>
+              <List.Item
+                key={i}
+                style={styles.listLi}
+              >{b.title}<br/>by {b.author}
+              </List.Item>
+            )
+            :<p>No blogs yet</p>
+        }
+      </List>
     </>
   )
 }

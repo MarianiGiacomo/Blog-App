@@ -7,8 +7,7 @@ const initialState = {
 const loginReducer = (state = initialState, action) => {
   switch (action.type) {
   case 'SET_TOKEN':
-    const token = `bearer ${action.data}`    
-    return { ...state, token: token }
+    return { ...state, token: `bearer ${action.data}` }
   case 'SET_USER':
     return { ...state, username: action.data.username, name: action.data.name }
   default:

@@ -9,12 +9,12 @@ import styles from '../style/styles'
 const BlogList = (props) => {
   const { blogs, login } = props
 
-  if(props.filterBlogs){    
+  if(props.filterBlogs){
     if(!props.filterBlogs(blogs, login).length){
       return (
         <div>
           <h2>Your blogs</h2>
-          <p>You don't have any blogs yet</p>
+          <p>You don&apos;t have any blogs yet</p>
         </div>
       )
     }

@@ -70,15 +70,15 @@ const App = (props) => {
         <Router>
           <Nav username={login.username} />
           <Notification />
-          <h2>Blogs</h2>
           <Route exact path='/' render={() =>
-            <div>
+            <>
+              <h1>Blogs</h1>
               <Togglable buttonLabel='New blog'>
                 <BlogForm />
               </Togglable>
               <BlogList filterBlogs={filterBlogs}/>
               <BlogList />
-            </div>
+            </>
           }/>
           <Route path='/blogs/:id' render={({ match }) =>
             <Blog blog={blogById(match.params.id)} />} />
