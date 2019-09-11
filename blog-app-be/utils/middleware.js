@@ -1,5 +1,9 @@
 
 const unknownEndpoint = (request, response) => {
+  if(/^(\/users.*|\/blogs.*)$/.test(request.url)){
+    response.writeHead(301, { Location: '/' });
+    response.end();
+  }
   response.status(404).send({ error: 'unknown endpoint' });
 };
 

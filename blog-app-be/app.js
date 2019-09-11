@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
+
 const config = require('./utils/config');
 const blogsRouter = require('./controllers/blogs');
 const usersRouter = require('./controllers/users');
@@ -22,6 +23,7 @@ const connectToMongo = async () => {
 
 connectToMongo();
 
+app.use(express.static('build'));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(middleware.tokenExtractor);
