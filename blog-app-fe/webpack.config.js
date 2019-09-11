@@ -6,7 +6,7 @@ const config = (env, argv) => {
 
   const backend_url = argv.mode === 'production'
     ? ''
-    : 'http://localhost:3001'
+    : ''
 
   return {
     entry: ['@babel/polyfill', './src/index.js'],
@@ -15,9 +15,13 @@ const config = (env, argv) => {
       filename: 'main.js'
     },
     devServer: {
+      historyApiFallback: true,
       contentBase: path.resolve(__dirname, 'build'),
       compress: true,
       port: 3000,
+      proxy: {
+        '/api': 'http://localhost:3001'
+      }
     },
     devtool: 'source-map',
     module: {

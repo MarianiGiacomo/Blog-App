@@ -65,20 +65,22 @@ const App = (props) => {
   }
 
   return (
-    <Container>
+    <Container >
       <div className='loggedin-content'>
         <Router>
           <Nav username={login.username} />
           <Notification />
           <Route exact path='/' render={() =>
-            <>
+            <div>
               <h1>Blogs</h1>
               <Togglable buttonLabel='New blog'>
                 <BlogForm />
               </Togglable>
-              <BlogList filterBlogs={filterBlogs}/>
-              <BlogList />
-            </>
+              <div>
+                <BlogList filterBlogs={filterBlogs}/>
+                <BlogList />
+              </div>
+            </div>
           }/>
           <Route path='/blogs/:id' render={({ match }) =>
             <Blog blog={blogById(match.params.id)} />} />
