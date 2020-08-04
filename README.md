@@ -1,4 +1,4 @@
-# fullstackopen-osa7
+# Blogs Collection Application
 Front-end: [https://morning-journey-51926.herokuapp.com/](https://morning-journey-51926.herokuapp.com/)
 
 ## Login credentials for FE
