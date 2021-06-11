@@ -6,7 +6,7 @@ const config = (env, argv) => {
 
   const backend_url = argv.mode === 'production'
   ? ''
-  : ''
+  : 'http://localhost:3001'
 
   return {
     // Where files should be sent once they are bundled
@@ -19,6 +19,7 @@ const config = (env, argv) => {
      port: 3000,
      watchContentBase: true
    },
+   devtool: "source-map",
     // Rules of how webpack will take our files, complie & bundle them for the browser 
    module: {
      rules: [
