@@ -43,7 +43,7 @@
     "lodash": "^4.17.21",
     "mongoose": "^5.12.13",
     "mongoose-unique-validator": "^2.0.3",
-    "snyk": "^1.624.0"
+    "snyk": "^1.625.0"
   },
   "jest": {
     "testEnvironment": "node"

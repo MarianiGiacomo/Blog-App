@@ -9,35 +9,54 @@ const config = (env, argv) => {
   : 'http://localhost:3001'
 
   return {
+   entry: path.resolve(__dirname, 'src', 'index.js'),
     // Where files should be sent once they are bundled
    output: {
-     path: path.join(__dirname, '/dist'),
-     filename: 'index.bundle.js'
+     path: path.resolve(__dirname, '/dist'),
+     filename: 'index_bundle.js'
    },
     // webpack 5 comes with devServer which loads in development mode
    devServer: {
      port: 3000,
-     watchContentBase: true
+     contentBase: path.join(__dirname, 'dist'),
+     compress: true,
+     open: true,
+     clientLogLevel: 'silent',
+     hot: true
    },
    devtool: "source-map",
     // Rules of how webpack will take our files, complie & bundle them for the browser 
    module: {
      rules: [
-       {
-         test: /\.(js|jsx)$/,
-         exclude: /nodeModules/,
-         use: {
-           loader: 'babel-loader'
-         }
-       },
+      {
+        test: /\.(jsx|js)$/,
+        include: path.resolve(__dirname, 'src'),
+        exclude: /node_modules/,
+        use: [{
+          loader: 'babel-loader',
+        }]
+      },
+      {
+        test: /\.html$/,
+        use: [
+          {
+            loader: "html-loader",
+          }
+        ]
+      },
        {
          test: /\.css$/,
+         include: path.resolve(__dirname, 'src'),
+         exclude: /node_modules/,
          use: ['style-loader', 'css-loader']
        }
      ]
    },
    plugins: [
-     new HtmlWebpackPlugin({ template: './src/index.html' }),
+     new HtmlWebpackPlugin({ 
+       template: './src/index.html', 
+       title: 'Favorite Blogs'
+      }),
      new webpack.DefinePlugin({
       'process.env': {
         BACKEND_URL: JSON.stringify(backend_url),
