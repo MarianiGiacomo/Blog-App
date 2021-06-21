@@ -1,49 +1,69 @@
 const path = require('path')
 const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const config = (env, argv) => {
-  console.log('argv', argv.mode)
 
   const backend_url = argv.mode === 'production'
-    ? ''
-    : ''
+  ? ''
+  : 'http://localhost:3001'
 
   return {
-    entry: ['@babel/polyfill', './src/index.js'],
-    output: {
-      path: path.resolve(__dirname, 'build'),
-      filename: 'main.js'
-    },
-    devServer: {
-      historyApiFallback: true,
-      contentBase: path.resolve(__dirname, 'build'),
-      compress: true,
-      port: 3000,
-      proxy: {
-        '/api': 'http://localhost:3001'
-      }
-    },
-    devtool: 'source-map',
-    module: {
-      rules: [
-        {
-          test: /\.js$/,
+   entry: path.resolve(__dirname, 'src', 'index.js'),
+    // Where files should be sent once they are bundled
+   output: {
+     path: path.resolve(__dirname, '/dist'),
+     filename: 'index_bundle.js'
+   },
+    // webpack 5 comes with devServer which loads in development mode
+   devServer: {
+     port: 3000,
+     contentBase: path.join(__dirname, 'dist'),
+     compress: true,
+     open: true,
+     clientLogLevel: 'silent',
+     hot: true
+   },
+   devtool: "source-map",
+    // Rules of how webpack will take our files, complie & bundle them for the browser 
+   module: {
+     rules: [
+      {
+        test: /\.(jsx|js)$/,
+        include: path.resolve(__dirname, 'src'),
+        exclude: /node_modules/,
+        use: [{
           loader: 'babel-loader',
-          query: {
-            presets: ['@babel/preset-env', '@babel/preset-react'],
-          },
-        },
-        {
-          test: /\.css$/,
-          loaders: ['style-loader', 'css-loader'],
-        },
-      ],
-    },
-    plugins: [
-      new webpack.DefinePlugin({
-        BACKEND_URL: JSON.stringify(backend_url)
-      })
-    ]
+        }]
+      },
+      {
+        test: /\.html$/,
+        use: [
+          {
+            loader: "html-loader",
+          }
+        ]
+      },
+       {
+         test: /\.css$/,
+         include: path.resolve(__dirname, 'src'),
+         exclude: /node_modules/,
+         use: ['style-loader', 'css-loader']
+       }
+     ]
+   },
+   plugins: [
+     new HtmlWebpackPlugin({ 
+      filename: 'index.html',
+      template: './src/index.html',
+      title: 'Favorite Blogs',
+      }),
+     new webpack.DefinePlugin({
+      'process.env': {
+        BACKEND_URL: JSON.stringify(backend_url),
+      },
+    }),
+    ],
   }
 }
 
