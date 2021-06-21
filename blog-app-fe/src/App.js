@@ -94,6 +94,12 @@ const App = (props) => {
       </div>
     </Container>
   )
+  return (
+    <input 
+      type="text" 
+      name="firstName" 
+      onChange={ (event) => console.log("onchange is triggered") } />
+  )
 }
 
 const filterBlogs = (blogs, user) => {
@@ -134,3 +140,23 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(App)
+
+// function App() {
+//   const handle = () => console.log('click')
+
+//   return (
+//     <>
+//     <input 
+//       type="text" 
+//       name="firstName" 
+//       placeholder="In App with listener"
+//       onChange={ (event) => console.log("onchange is triggered") } />
+//     <input 
+//       type="text" 
+//       name="firstName" 
+//       placeholder="In App no listener" />
+//     </>
+//   )
+// }
+
+// export default App
