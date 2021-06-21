@@ -54,8 +54,9 @@ const config = (env, argv) => {
    },
    plugins: [
      new HtmlWebpackPlugin({ 
-       template: './src/index.html', 
-       title: 'Favorite Blogs'
+      filename: 'index.html',
+      template: './src/index.html',
+      title: 'Favorite Blogs',
       }),
      new webpack.DefinePlugin({
       'process.env': {
