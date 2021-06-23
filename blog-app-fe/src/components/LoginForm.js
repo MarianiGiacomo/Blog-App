@@ -38,25 +38,28 @@ const LoginForm = (props) => {
   }
 
   return (
-    <div>
+    <>
+    <h2>Login</h2>
       <Form onSubmit={handleLogin} className='login-form'>
         <Form.Group>
           <Form.Input
+              label="Username"
               id='username'
               type={username.type}
               value={username.value}
               onChange={username.onChange}
           />
           <Form.Input
+              label="Password"
               id='password'
               type={password.type}
               value={password.value}
               onChange={password.onChange}
           />
-          <Form.Button type='submit' style={styles.button}>Login</Form.Button>
         </Form.Group>
+        <Form.Button type='submit' style={styles.button}>Login</Form.Button>
       </Form>
-    </div>
+    </>
   )
 }
 

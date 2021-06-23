@@ -6,6 +6,7 @@ import PromisePolyfill from 'promise-polyfill'
 
 import App from './App'
 import store from './store'
+import './style/styles.css'
 
 const render = () => {
   ReactDOM.render(

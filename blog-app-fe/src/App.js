@@ -57,9 +57,13 @@ const App = (props) => {
   if (login.token === '') {
     return (
       <Container>
-        <Notification />
-        <h2>Log in to application</h2>
-        <LoginForm />
+        <header>
+          <Notification />
+          <h1>Favorite Blogs</h1>
+        </header>
+        <main>
+          <LoginForm />
+        </main>
       </Container>
     )
   }
@@ -71,7 +75,7 @@ const App = (props) => {
           <Nav username={login.username} />
           <Notification />
           <Route exact path='/' render={() =>
-            <div>
+            <main>
               <h1>Blogs</h1>
               <Togglable buttonLabel='New blog'>
                 <BlogForm />
@@ -80,16 +84,26 @@ const App = (props) => {
                 <BlogList filterBlogs={filterBlogs}/>
                 <BlogList />
               </div>
-            </div>
+            </main>
           }/>
           <Route path='/blogs/:id' render={({ match }) =>
-            <Blog blog={blogById(match.params.id)} />} />
+            <main>
+              <Blog blog={blogById(match.params.id)} />
+            </main>
+          } />
           <Route exact path='(/blogs)' render={() => <Redirect to='/'/>} />
           <Route exact path='(/blogs/)' render={() => <Redirect to='/'/>} />
           <Route path='/users/:id' render={({ match }) =>
-            <User user={userById(match.params.id)}/>} />
+            <main>
+              <User user={userById(match.params.id)}/>
+            </main>
+           } />
           <Route exact path='/users/)' render={() => <Redirect to='/users'/>} />
-          <Route exact path='/users' render={() => <UserList />} />
+          <Route exact path='/users' render={() => 
+            <main>
+              <UserList />
+            </main>
+          } />
         </Router>
       </div>
     </Container>

@@ -1,5 +1,6 @@
 const button = {
   margin: '0px 2px 8px 0px',
+  border: '1px solid #9b9b9b'
 }
 
 const table = {
@@ -13,8 +14,7 @@ const tableList = {
 }
 
 const navUl = {
-  marginTop: '2px',
-  backgroundColor: 'lightGrey'
+  backgroundColor: '#ffffff'
 }
 
 const listLi = {
@@ -22,23 +22,23 @@ const listLi = {
 }
 
 const notificationError = {
-  color: 'red',
-  background: 'lightgrey',
+  color: '#8a0202',
+  background: '#ffffff',
   fontSize: 20,
   borderStyle: 'solid',
   borderRadius: 5,
   padding: 10,
-  marginBottom: 10,
+  margin: 10,
 }
 
 const notificationMessage = {
   color: 'green',
-  background: 'lightgrey',
+  background: '#ffffff',
   fontSize: 20,
   borderStyle: 'solid',
   borderRadius: 5,
   padding: 10,
-  marginBottom: 10,
+  margin: 10,
 }
 
 export default {

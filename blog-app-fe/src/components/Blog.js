@@ -36,7 +36,7 @@ const Blog = (props) => {
   props.getBlogComments(blog)
   return (
     <div>
-      <h2>{blog.title} by {blog.author}</h2>
+      <h1>{blog.title} by {blog.author}</h1>
       <p><a href={blog.url} target='_blank' rel='noopener noreferrer' >{blog.url}</a></p>
       <p>Likes: {blog.likes}</p>
       <Button
@@ -54,12 +54,12 @@ const Blog = (props) => {
             >Remove
             </Button>
           </div>
-          : <br />
+          : null
       }
       <Toggable buttonLabel='Add comment'>
         <CommentForm blog={blog}/>
       </Toggable>
-      <h3>Comments</h3>
+      <h2>Comments</h2>
       <List divided relaxed>
         {
           comments.length?
@@ -70,7 +70,11 @@ const Blog = (props) => {
               >{b.comment}<br/>by {b.user.name} - {b.timeStamp}
               </List.Item>
             )
-            :<p>No comments yet</p>
+            :
+              <List.Item
+                style={styles.listLi} >
+                <p>No comments yet</p>
+              </List.Item>
         }
       </List>
     </div>

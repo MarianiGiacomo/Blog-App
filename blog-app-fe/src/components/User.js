@@ -15,8 +15,8 @@ const User = (props) => {
 
   return (
     <>
-      <h2>{user.name}</h2>
-      <h3>Blogs</h3>
+      <h1>{user.name}</h1>
+      <h2>Blogs</h2>
       <List divided relaxed>
         {
           user.blogs.length?
@@ -24,10 +24,16 @@ const User = (props) => {
               <List.Item
                 key={i}
                 style={styles.listLi}
-              >{b.title}<br/>by {b.author}
+              >
+                <p>{b.title}</p>
+                <p>by {b.author}</p>
+                <a href={b.url}>{b.url}</a>
               </List.Item>
             )
-            :<p>No blogs yet</p>
+            :
+              <List.Item>
+                <p>No blogs yet</p>
+              </List.Item>
         }
       </List>
     </>
