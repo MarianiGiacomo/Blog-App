@@ -18,6 +18,7 @@ import UserList from './components/UserList'
 import BlogList from './components/BlogList'
 import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
+import SignupForm from './components/SignupForm'
 import BlogForm from './components/BlogForm'
 import Blog from './components/Blog'
 import Togglable from './components/Togglable'
@@ -63,6 +64,7 @@ const App = (props) => {
         </header>
         <main>
           <LoginForm />
+          <SignupForm />
         </main>
       </Container>
     )

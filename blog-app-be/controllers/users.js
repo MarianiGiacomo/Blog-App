@@ -15,7 +15,8 @@ usersRouter.post('/', async (request, response) => {
   try {
     const body = request.body;
     if(!body.name) {
-      response.status(400).end('Name can not be empty');
+      response.statusMessage = 'Name can not be empty';
+      response.status(400).end();
     } else if(!body.username) {
       response.status(400).end('Username can not be empty');
     } else if(!body.password | body.password.length < 3) {

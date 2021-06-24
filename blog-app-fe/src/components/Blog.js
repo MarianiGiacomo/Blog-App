@@ -67,7 +67,7 @@ const Blog = (props) => {
               <List.Item
                 key={i}
                 style={styles.listLi}
-              >{b.comment}<br/>by {b.user.name} - {b.timeStamp}
+              ><p>{b.comment}</p><p>by {b.user.name} - {b.timeStamp}</p>
               </List.Item>
             )
             :

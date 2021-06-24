@@ -7,4 +7,21 @@ const getAll = async () => {
   return response.data
 }
 
-export default { getAll }
+const createUser = async (credentials) => {
+  const request = new Request(baseUrl, {
+    method: 'POST',
+    body: JSON.stringify(credentials),
+    headers: new Headers({
+      'Content-Type': 'application/json'
+    })
+  })
+  let response = await fetch(request)
+  if (response.ok) {
+    let json = await response.json()
+    return json
+  } else {
+    throw new Error(response.statusText)
+  }
+}
+
+export default { getAll, createUser }
