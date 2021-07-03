@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import {
@@ -6,19 +5,18 @@ import {
   Route, Redirect
 } from 'react-router-dom'
 import PropTypes from 'prop-types'
-
 import { initializeBlogs } from './reducers/blogReducer'
 import { setNotification } from './reducers/notificationReducer'
 import { setToken, setUser } from './reducers/loginReducer'
 import { getUsers } from './reducers/usersReducer'
-
 import { Container } from 'semantic-ui-react'
 import Nav from './components/Nav'
 import UserList from './components/UserList'
 import BlogList from './components/BlogList'
-import Notification from './components/Notification'
-import LoginForm from './components/LoginForm'
-import SignupForm from './components/SignupForm'
+import Notification from './components/presentational/Notification'
+import LoginNav from './components/presentational/LoginNav'
+import LoginPage from './components/container/LoginPage'
+import SignupPage from './components/container/SignupPage'
 import BlogForm from './components/BlogForm'
 import Blog from './components/Blog'
 import Togglable from './components/Togglable'
@@ -55,17 +53,39 @@ const App = (props) => {
     setUser,
   ])
 
+	const navButtons = [
+		{
+			text: 'Login',
+			onClick: () => console.log('hide')
+		},
+		{
+			text: 'Signup',
+			onClick: () => console.log('hide')
+		}
+	]
+
   if (login.token === '') {
     return (
       <Container>
-        <header>
-          <Notification />
-          <h1>Favorite Blogs</h1>
-        </header>
-        <main>
-          <LoginForm />
-          <SignupForm />
-        </main>
+				<Router>
+					<Notification />
+					<LoginNav buttons={navButtons}/>
+					<header>
+						<h1>Favorite Blogs</h1>
+					</header>
+					<Route exact path='/' render={() => 
+						<main>
+							<LoginPage />
+						</main>
+					}>
+					</Route>
+					<Route path='/signup' render={() => 
+						<main>
+							<SignupPage />
+						</main>
+					}>
+					</Route>
+				</Router>
       </Container>
     )
   }
@@ -110,12 +130,6 @@ const App = (props) => {
       </div>
     </Container>
   )
-  return (
-    <input 
-      type="text" 
-      name="firstName" 
-      onChange={ (event) => console.log("onchange is triggered") } />
-  )
 }
 
 const filterBlogs = (blogs, user) => {
@@ -156,23 +170,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(App)
-
-// function App() {
-//   const handle = () => console.log('click')
-
-//   return (
-//     <>
-//     <input 
-//       type="text" 
-//       name="firstName" 
-//       placeholder="In App with listener"
-//       onChange={ (event) => console.log("onchange is triggered") } />
-//     <input 
-//       type="text" 
-//       name="firstName" 
-//       placeholder="In App no listener" />
-//     </>
-//   )
-// }
-
-// export default App

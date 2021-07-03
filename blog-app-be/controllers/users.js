@@ -18,9 +18,11 @@ usersRouter.post('/', async (request, response) => {
       response.statusMessage = 'Name can not be empty';
       response.status(400).end();
     } else if(!body.username) {
-      response.status(400).end('Username can not be empty');
+      response.statusMessage = 'Username can not be empty';
+      response.status(400).end();
     } else if(!body.password | body.password.length < 3) {
-      response.status(400).end('Password minimum length = 3');
+      response.statusMessage = 'Password minimum length = 3';
+      response.status(400).end();
     }
     else {
       const saltRounds = 10;
@@ -37,7 +39,9 @@ usersRouter.post('/', async (request, response) => {
       response.json(savedUser);
     }
   } catch (error) {
-    response.status(403).end(error.message);
+    console.warn(error)
+    response.statusMessage = 'An error occoured on the server when handling your request'
+    response.status(500).end();
   }
 });
 

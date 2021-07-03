@@ -10,7 +10,7 @@ const Nav = (props) => {
   const {
     username
   } = props
-  const [activeItem, setActiveItem] = useState('blogs')
+  const [activeItem, setActiveItem] = useState(window.location.pathname.substr(1))
 
   return (
     <nav>
