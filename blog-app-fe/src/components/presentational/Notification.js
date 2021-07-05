@@ -1,7 +1,4 @@
-import React from 'react'
-import { connect } from 'react-redux'
-
-import styles from '../../style/styles'
+import { React, connect, styles } from '../../imports'
 
 const Notification = (props) => {
 

@@ -13,18 +13,10 @@ const SignupPage = props => {
 	const name = useField('name')
 	const password = useField('password')
 	
-	const credentials = () => {
-		return { 
-			username: username.value,
-			name: name.value,
-			password: password.value,
-		}
-	}
-
 	const handleSignup = async (event) => {
     event.preventDefault()    
     try {
-      const newUser = await userService.createUser(credentials())
+      const newUser = await userService.createUser(credentials(username, name, password))
       props.setNotification({ message: `User with username ${newUser.username} created`}, 5) 
     } catch (exception) {
       props.setNotification({ error: `Could not create user: ${exception}`}, 5)
@@ -33,6 +25,10 @@ const SignupPage = props => {
 
 	return (
 		<>
+			<h2>Sign up</h2>
+			<p>
+				&#10071;<strong>The created user will be automatically removed within 24 hours</strong>
+			</p>
 			<SignupForm handleSignup={handleSignup} username={username} name={name} password={password}/>
 		</>
 	)

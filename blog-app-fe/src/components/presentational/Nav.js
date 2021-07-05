@@ -1,16 +1,10 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-
-import { Link } from 'react-router-dom'
-import Logout from '../components/Logout'
-import { Menu } from 'semantic-ui-react'
-import styles from '../style/styles'
+import { React, useState, PropTypes, Link, Logout, Menu, styles } from '../../imports'
 
 const Nav = (props) => {
   const {
     username
   } = props
-  const [activeItem, setActiveItem] = useState(window.location.pathname.substr(1))
+  const [activeItem, setActiveItem] = useState(window.location.pathname.substr(1) || 'blogs')
 
   return (
     <nav>

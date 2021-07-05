@@ -1,8 +1,4 @@
-import React from 'react'
-
-import { Button } from 'semantic-ui-react'
-import styles from '../style/styles'
-
+import { React, Button, styles } from '../../imports'
 
 const Logout = () => {
   return (

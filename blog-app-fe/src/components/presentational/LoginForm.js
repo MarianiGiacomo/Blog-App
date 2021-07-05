@@ -15,6 +15,7 @@ const LoginForm = (props) => {
               required
               label="Username"
               id='username'
+							name={username.name}
               type={username.type}
               value={username.value}
               onChange={username.onChange}
@@ -23,6 +24,7 @@ const LoginForm = (props) => {
               required
               label="Password"
               id='password'
+							name={password.name}
               type={password.type}
               value={password.value}
               onChange={password.onChange}

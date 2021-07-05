@@ -1,28 +1,14 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import LoginForm from '../presentational/LoginForm'
-import { useField } from '../../hooks'
-import { initializeBlogs } from '../../reducers/blogReducer'
-import { setToken, setUser } from '../../reducers/loginReducer'
-import { setNotification } from '../../reducers/notificationReducer'
-import loginService from '../../services/login'
+import { React, PropTypes, connect, LoginForm, useField, initializeBlogs, setToken, setUser,
+setNotification, loginService, getCredentials } from '../../imports'
 
 function LoginPage(props) {
-  const username = useField('text')
-	const password = useField('password')
-
-	const credentials = () => {
-		return { 
-			username: username.value,
-			password: password.value,
-		}
-	}
-
-  const handleLogin = async (event) => {
+  const username = useField('text', 'username')
+	const password = useField('password', 'password')
+  
+	const handleLogin = async (event) => {
     event.preventDefault()
     try {
-      const user = await loginService.login(credentials())
+      const user = await loginService.login(getCredentials(username, password))
       window.localStorage.setItem(
         'loggedBlogAppUser', JSON.stringify(user)
       )

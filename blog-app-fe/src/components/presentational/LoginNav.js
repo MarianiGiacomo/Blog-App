@@ -1,9 +1,6 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { Menu } from 'semantic-ui-react'
-import styles from '../../style/styles'
+import { React, useState, Menu, Link, styles } from '../../imports'
 
-const LoginNav = (props) => {
+const LoginNav = () => {
   const [activeItem, setActiveItem] = useState(window.location.pathname.substr(1) || 'login')
 
   return (
@@ -18,7 +15,7 @@ const LoginNav = (props) => {
           <Link
             to={'/signup'}
             onClick={ () => setActiveItem('signup')}
-          >Users</Link>
+          >Signup</Link>
 				</Menu.Item>
       </Menu>
     </nav>

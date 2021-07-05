@@ -8,8 +8,6 @@ const SignupForm = (props) => {
 
   return (
     <>
-    <h2>Create new test user</h2>
-      <strong>The created user will be automatically removed within 24 hours</strong>
       <Form onSubmit={handleSignup} className='login-form'>
         <Form.Group>
           <Form.Input
@@ -20,6 +18,8 @@ const SignupForm = (props) => {
               value={username.value}
               onChange={username.onChange}
           />
+        </Form.Group>
+        <Form.Group>
           <Form.Input
 							required
               label="Name"
@@ -28,6 +28,8 @@ const SignupForm = (props) => {
               value={name.value}
               onChange={name.onChange}
           />
+        </Form.Group>
+        <Form.Group>
           <Form.Input
 							required
               label="Password"
