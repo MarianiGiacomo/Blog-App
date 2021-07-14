@@ -1,25 +1,19 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { useField } from '../../hooks'
-import SignupForm from '../presentational/SignupForm'
-import { initializeBlogs } from '../../reducers/blogReducer'
-import { setNotification } from '../../reducers/notificationReducer'
-import { setToken, setUser } from '../../reducers/loginReducer'
-
+import { React, PropTypes, connect, useField, SignupForm, setNotification, getFieldsValues,
+ userService } from '../../imports'
 
 const SignupPage = props => {
-  const username = useField('text')
-	const name = useField('name')
-	const password = useField('password')
+  const username = useField('text', 'username')
+	const name = useField('name', 'name')
+	const password = useField('password', 'password')
+  const { setNotification } = props
 	
 	const handleSignup = async (event) => {
     event.preventDefault()    
     try {
-      const newUser = await userService.createUser(credentials(username, name, password))
-      props.setNotification({ message: `User with username ${newUser.username} created`}, 5) 
+      const newUser = await userService.createUser(getFieldsValues(username, name, password))
+      setNotification({ message: `User with username ${newUser.username} created`}, 5) 
     } catch (exception) {
-      props.setNotification({ error: `Could not create user: ${exception}`}, 5)
+      setNotification({ error: `Could not create user: ${exception}`}, 5)
     }
   }
 
@@ -35,16 +29,10 @@ const SignupPage = props => {
 }
 
 const mapDispatchToProps =   {
-  initializeBlogs,
   setNotification,
-  setToken,
-  setUser,
 }
 
 SignupPage.propTypes = {
-  initializeBlogs: PropTypes.func.isRequired,
-  setToken: PropTypes.func.isRequired,
-  setUser: PropTypes.func.isRequired,
   setNotification: PropTypes.func.isRequired,
 }
 

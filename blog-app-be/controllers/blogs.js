@@ -119,41 +119,32 @@ blogsRouter.get('/:id/comments', async (request, response, next) => {
 
 blogsRouter.post('/:id/comments', async (request, response, next) => {
   const body = request.body;
-  let user = {};
-  let blog = {};
+	let decodedToken = {}
   try {
-    const decodedToken = jwt.verify(request.token, process.env.SECRET);
+    decodedToken = jwt.verify(request.token, process.env.SECRET);
     if (!decodedToken.id) {
       return response.status(401).json({ error: 'token missing or invalid' });
     }
-    user = await User.findById(decodedToken.id);
-    blog = await Blog.findById(body.blog);
   } catch (error) {
     next(error);
     console.log(error);
     return response.status(401).json({ error: error });
   }
-
+	const user = await User.findById(decodedToken.id);
   const comment = new Comment({ ...body, 'user': user.id });
-
   if(!comment.comment | !comment.blog){
     response.status(400).end();
-  } else {
-    try {
-      const savedComment = await comment.save();
-      blog.comments = blog.comments.concat(savedComment.id);
-      try {
-        await blog.save();
-      } catch (error) {
-        console.log('Cant save blog', error);
-        response.status(403).end(error.message);
-      }
-      response.status(201).json(savedComment);
-    } catch (error) {
-      console.log('Cant save comment', error);
-      response.status(403).end(error.message);
-    }
   }
+	try {
+		const blog = await Blog.findById(body.blog);
+		const savedComment = await comment.save();
+		blog.comments = blog.comments.concat(savedComment.id);
+		await blog.save();
+		response.status(201).json(savedComment);
+	} catch (error) {
+		console.log('Cant save comment', error);
+		response.status(403).end(error.message);
+	}
 });
 
 module.exports = blogsRouter;

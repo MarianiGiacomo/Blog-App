@@ -1,7 +1,4 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Form } from 'semantic-ui-react'
-import styles from '../../style/styles'
+import { React, PropTypes, Form, styles } from '../../imports'
 
 const SignupForm = (props) => {
 	const { handleSignup, username, name, password } = { ...props }
@@ -14,6 +11,7 @@ const SignupForm = (props) => {
 							required
               label="Username"
               id='username'
+							name={username.name}
               type={username.type}
               value={username.value}
               onChange={username.onChange}
@@ -24,6 +22,7 @@ const SignupForm = (props) => {
 							required
               label="Name"
               id='name'
+							name={name.name}
               type={name.type}
               value={name.value}
               onChange={name.onChange}
@@ -34,6 +33,7 @@ const SignupForm = (props) => {
 							required
               label="Password"
               id='password'
+							name={password.name}
               type={password.type}
               value={password.value}
               onChange={password.onChange}

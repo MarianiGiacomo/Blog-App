@@ -1,7 +1,7 @@
 import {
 	React, useEffect, connect, Router, Route, Redirect, PropTypes, initializeBlogs, setNotification,
 	setToken, setUser, getUsers, Container, filterBlogs, Nav, UserList, BlogList, Notification,
-	LoginNav, LoginPage, SignupPage, BlogForm, Blog, Togglable, User
+	LoginNav, LoginPage, SignupPage, BlogsPage, Blog, User
 } from './imports'
 
 const App = (props) => {
@@ -63,35 +63,13 @@ const App = (props) => {
         <Router>
           <Nav username={login.username} />
           <Notification />
-          <Route exact path='/' render={() =>
-            <main>
-              <h1>Blogs</h1>
-              <Togglable buttonLabel='New blog'>
-                <BlogForm />
-              </Togglable>
-              <div>
-                <BlogList filterBlogs={filterBlogs}/>
-                <BlogList />
-              </div>
-            </main>
-          }/>
-          <Route path='/blogs/:id' render={({ match }) =>
-            <main>
-              <Blog blog={blogs.find(b => b.id === match.params.id)} />
-            </main>
-          } />
+          <Route exact path='/' render={() => <BlogsPage /> }/>
+          <Route path='/blogs/:id' render={({ match }) => <Blog match={match} />} />
           <Route exact path='(/blogs)' render={() => <Redirect to='/'/>} />
           <Route exact path='(/blogs/)' render={() => <Redirect to='/'/>} />
-          <Route path='/users/:id' render={({ match }) =>
-            <main>
-              <User user={users.find(u => u.id === match.params.id)}/>
-            </main>
-           } />
+          <Route path='/users/:id' render={({ match }) => <User match={match} />} />
           <Route exact path='/users/)' render={() => <Redirect to='/users'/>} />
-          <Route exact path='/users' render={() => 
-            <main>
-              <UserList />
-            </main>
+          <Route exact path='/users' render={() => <UserList />
           } />
         </Router>
       </div>

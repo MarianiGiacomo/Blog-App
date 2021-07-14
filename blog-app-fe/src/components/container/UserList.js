@@ -1,21 +1,16 @@
-import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
-import PropTypes from 'prop-types'
-
-import { Table } from 'semantic-ui-react'
-import styles from '../style/styles'
-import { getUsers } from '../reducers/usersReducer'
+import { React, useEffect, connect, Link, PropTypes, Table, styles, 
+	getUsers, initializeBlogs, populateWithBlogs } from '../../imports'
 
 const UserList = (props) => {
-  const { users, getUsers } = props
+  const { users, blogs, getUsers, initializeBlogs } = props
 
   useEffect(() => {
+		initializeBlogs()
     getUsers()
-  }, [getUsers])
+  }, [users, blogs])
 
   return (
-    <div>
+    <main>
       <h1>Users</h1>
       <Table striped celled style={styles.table}>
         <Table.Header>
@@ -26,7 +21,7 @@ const UserList = (props) => {
         </Table.Header>
 
         <Table.Body>
-          { users.map((user, i) =>
+          { populateWithBlogs(users, blogs).map((user, i) =>
             <Table.Row key={i}>
               <Table.Cell>
                 <Link to={`/users/${user.id}`}>{user.name}</Link>
@@ -36,22 +31,29 @@ const UserList = (props) => {
           )}
         </Table.Body>
       </Table>
-    </div>
+    </main>
   )
 }
 
 const mapStateToProps = (state) => {
   return {
-    users: state.users
+    users: state.users,
+		blogs: state.blogs
   }
+}
+
+const mapDispatchToProps = {
+	getUsers, 
+	initializeBlogs
 }
 
 UserList.propTypes = {
   users: PropTypes.array.isRequired,
+  blogs: PropTypes.array.isRequired,
   getUsers: PropTypes.func.isRequired,
 }
 
 export default connect(
   mapStateToProps,
-  { getUsers }
+  mapDispatchToProps
 )(UserList)

@@ -1,5 +1,5 @@
 import { React, PropTypes, connect, LoginForm, useField, initializeBlogs, setToken, setUser,
-setNotification, loginService, getCredentials } from '../../imports'
+setNotification, loginService, getFieldsValues } from '../../imports'
 
 function LoginPage(props) {
   const username = useField('text', 'username')
@@ -8,7 +8,7 @@ function LoginPage(props) {
 	const handleLogin = async (event) => {
     event.preventDefault()
     try {
-      const user = await loginService.login(getCredentials(username, password))
+      const user = await loginService.login(getFieldsValues(username, password))
       window.localStorage.setItem(
         'loggedBlogAppUser', JSON.stringify(user)
       )

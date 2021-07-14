@@ -1,5 +1,3 @@
-import { FormInput } from 'semantic-ui-react'
-
 // React & Redux
 export { default as React, useEffect, useState } from 'react'
 export { connect } from 'react-redux'
@@ -10,13 +8,16 @@ export {
 export { PropTypes } from 'prop-types'
 // Reducers
 export { getUsers } from '../reducers/usersReducer'
-export { initializeBlogs } from '../reducers/blogReducer'
+export { initializeBlogs, createBlog, likeBlog, removeBlog} from '../reducers/blogReducer'
 export { setNotification } from '../reducers/notificationReducer'
 export { setToken, setUser } from '../reducers/loginReducer'
+export { getBlogComments, addComment } from '../reducers/commentReducer'
 // Internal Components
-export { default as BlogForm } from '../components/BlogForm'
-export { default as Blog } from '../components/Blog'
-export { default as BlogList } from '../components/BlogList'
+export { default as BlogsPage } from '../components/container/BlogsPage'
+export { default as BlogForm } from '../components/presentational/BlogForm'
+export { default as Blog } from '../components/container/Blog'
+export { default as BlogList } from '../components/presentational/BlogList'
+export { default as CommentForm } from '../components/presentational/CommentForm'
 export { default as LoginForm } from '../components/presentational/LoginForm'
 export { default as LoginPage } from '../components/container/LoginPage'
 export { default as LoginNav } from '../components/presentational/LoginNav'
@@ -24,15 +25,18 @@ export { default as Logout } from '../components/presentational/Logout'
 export { default as Nav } from '../components/presentational/Nav'
 export { default as Notification } from '../components/presentational/Notification'
 export { default as SignupPage } from '../components/container/SignupPage'
-export { default as Togglable } from '../components/Togglable'
-export { default as User } from '../components/User'
-export { default as UserList } from '../components/UserList'
+export { default as SignupForm } from '../components/presentational/SignupForm'
+export { default as Togglable } from '../components/container/Togglable'
+export { default as User } from '../components/container/User'
+export { default as UserList } from '../components/container/UserList'
 // External Components
-export { Button, Container, Menu } from 'semantic-ui-react'
+export { Button, Container, Form, List, Menu, Table } from 'semantic-ui-react'
 // Services
 export { default as loginService } from '../services/login'
+export { default as userService } from '../services/users'
 // Helper libs
 export {  useField } from '../hooks'
-export { filterBlogs, getCredentials } from '../lib'
+export { filterBlogs, getFieldsValues, checkUrl, populateWithBlogs,
+emptyObj, postReq } from '../lib'
 // Styles
 export { default as styles } from '../style/styles'
