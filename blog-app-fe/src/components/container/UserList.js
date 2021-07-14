@@ -1,11 +1,11 @@
-import { React, useEffect, connect, Link, PropTypes, Table, styles, 
-	getUsers, initializeBlogs, populateWithBlogs } from '../../imports'
+import { React, useEffect, connect, Link, PropTypes, Table, styles,
+  getUsers, initializeBlogs, populateWithBlogs } from '../../imports'
 
 const UserList = (props) => {
   const { users, blogs, getUsers, initializeBlogs } = props
 
   useEffect(() => {
-		initializeBlogs()
+    initializeBlogs()
     getUsers()
   }, [users, blogs])
 
@@ -38,13 +38,13 @@ const UserList = (props) => {
 const mapStateToProps = (state) => {
   return {
     users: state.users,
-		blogs: state.blogs
+    blogs: state.blogs
   }
 }
 
 const mapDispatchToProps = {
-	getUsers, 
-	initializeBlogs
+  getUsers,
+  initializeBlogs
 }
 
 UserList.propTypes = {

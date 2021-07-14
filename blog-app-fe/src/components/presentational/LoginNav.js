@@ -16,7 +16,7 @@ const LoginNav = () => {
             to={'/signup'}
             onClick={ () => setActiveItem('signup')}
           >Signup</Link>
-				</Menu.Item>
+        </Menu.Item>
       </Menu>
     </nav>
 

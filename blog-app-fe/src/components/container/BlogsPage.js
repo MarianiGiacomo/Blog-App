@@ -1,13 +1,13 @@
-import { React, connect, useField, PropTypes, createBlog, setNotification, 
-Togglable, BlogForm, BlogList, checkUrl, getFieldsValues, filterBlogs } from '../../imports'
+import { React, connect, useField, PropTypes, createBlog, setNotification,
+  Togglable, BlogForm, BlogList, checkUrl, getFieldsValues } from '../../imports'
 
 function BlogsPage(props) {
   const title = useField('text', 'title')
   const author = useField('text', 'author')
   const url = useField('text', 'url')
   const { login, setNotification, createBlog } = props
-  
-	const handleSubmit = async (event) => {
+
+  const handleSubmit = async (event) => {
     event.preventDefault()
     if(!checkUrl(url.value)){
       setNotification({ error: 'Please use a valid URL as "https://" or "http://"' }, 3)
@@ -24,22 +24,22 @@ function BlogsPage(props) {
     }
   }
 
-	return (
-		<>
-			<h1>Blogs</h1>
-			<main>
-				<BlogList />
-				<Togglable buttonLabel='New blog'>
-					<BlogForm 
-						handleSubmit={handleSubmit}
-						title={title}
-						author={author}
-						url={url}
-					/>
-				</Togglable>
-			</main>
-			</>
-	)
+  return (
+    <>
+      <h1>Blogs</h1>
+      <main>
+        <BlogList />
+        <Togglable buttonLabel='New blog'>
+          <BlogForm
+            handleSubmit={handleSubmit}
+            title={title}
+            author={author}
+            url={url}
+          />
+        </Togglable>
+      </main>
+    </>
+  )
 }
 
 const mapDispatchToProps = {
@@ -60,7 +60,7 @@ BlogsPage.propTypes = {
 }
 
 export default connect(
-	mapStateToProps,
-	mapDispatchToProps)
-(BlogsPage)
+  mapStateToProps,
+  mapDispatchToProps
+)(BlogsPage)
 

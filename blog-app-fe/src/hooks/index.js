@@ -8,8 +8,8 @@ export const useField = (type, name) => {
   }
 
   return {
-		name,
-		type,
+    name,
+    type,
     value,
     onChange,
     setValue,

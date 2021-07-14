@@ -19,7 +19,7 @@
   "scripts": {
     "start": "webpack serve --mode development",
     "build": "webpack --mode production",
-    "eslint": "eslint .",
+    "eslint": "eslint ./src --fix",
     "server": "json-server -p3005 db.json --routes routes.json",
     "cypress:open": "cypress open"
   },

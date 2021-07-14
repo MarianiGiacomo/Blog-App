@@ -17,7 +17,7 @@ describe('Login', function() {
   it('user can log in', function() {
     cy.get('#username')
       .type(user.username)
-    cy.get("#password")
+    cy.get('#password')
       .type(user.password)
     cy.contains('Login')
       .click()
@@ -32,14 +32,14 @@ describe('when logged in', function() {
     cy.visit('http://localhost:3000')
     cy.get('#username')
       .type(user.username)
-    cy.get("#password")
+    cy.get('#password')
       .type(user.password)
     cy.contains('Login')
       .click()
   })
 
   it('name of the user is shown', function() {
-        cy.contains(`${user.username} logged in`)
+    cy.contains(`${user.username} logged in`)
   })
 
   it('a new blog can be created', function() {

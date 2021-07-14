@@ -1,11 +1,11 @@
 import { React, PropTypes, connect, LoginForm, useField, initializeBlogs, setToken, setUser,
-setNotification, loginService, getFieldsValues } from '../../imports'
+  setNotification, loginService, getFieldsValues } from '../../imports'
 
 function LoginPage(props) {
   const username = useField('text', 'username')
-	const password = useField('password', 'password')
-  
-	const handleLogin = async (event) => {
+  const password = useField('password', 'password')
+
+  const handleLogin = async (event) => {
     event.preventDefault()
     try {
       const user = await loginService.login(getFieldsValues(username, password))
@@ -23,13 +23,13 @@ function LoginPage(props) {
     }
   }
 
-	return (
-		<>
-			<main>
-				<LoginForm handleLogin={handleLogin} username={username} password={password}/>
-			</main>
-		</>
-	)
+  return (
+    <>
+      <main>
+        <LoginForm handleLogin={handleLogin} username={username} password={password}/>
+      </main>
+    </>
+  )
 }
 
 const mapDispatchToProps =   {
@@ -47,6 +47,6 @@ LoginPage.propTypes = {
 }
 
 export default connect(
-	null,
-	mapDispatchToProps	
+  null,
+  mapDispatchToProps
 )(LoginPage)

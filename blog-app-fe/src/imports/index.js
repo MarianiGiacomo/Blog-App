@@ -1,5 +1,5 @@
 // React & Redux
-export { default as React, useEffect, useState } from 'react'
+export { default as React, useEffect, useState } from 'react'
 export { connect } from 'react-redux'
 export {
   BrowserRouter as Router,
@@ -8,7 +8,7 @@ export {
 export { PropTypes } from 'prop-types'
 // Reducers
 export { getUsers } from '../reducers/usersReducer'
-export { initializeBlogs, createBlog, likeBlog, removeBlog} from '../reducers/blogReducer'
+export { initializeBlogs, createBlog, likeBlog, removeBlog } from '../reducers/blogReducer'
 export { setNotification } from '../reducers/notificationReducer'
 export { setToken, setUser } from '../reducers/loginReducer'
 export { getBlogComments, addComment } from '../reducers/commentReducer'
@@ -33,10 +33,10 @@ export { default as UserList } from '../components/container/UserList'
 export { Button, Container, Form, List, Menu, Table } from 'semantic-ui-react'
 // Services
 export { default as loginService } from '../services/login'
-export { default as userService } from '../services/users'
+export { default as userService } from '../services/users'
 // Helper libs
 export {  useField } from '../hooks'
 export { filterBlogs, getFieldsValues, checkUrl, populateWithBlogs,
-emptyObj, postReq } from '../lib'
+  emptyObj, postReq } from '../lib'
 // Styles
 export { default as styles } from '../style/styles'

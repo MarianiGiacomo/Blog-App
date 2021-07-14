@@ -6,11 +6,11 @@ export const filterBlogs = (blogs, user) => {
 }
 
 export const getFieldsValues = (...fields) => {
-	const credentials = {}
-	fields.forEach(f => {
-		credentials[f.name] = f.value
-	})
-	return credentials
+  const credentials = {}
+  fields.forEach(f => {
+    credentials[f.name] = f.value
+  })
+  return credentials
 }
 
 export const checkUrl = (url) => {
@@ -21,11 +21,11 @@ export const checkUrl = (url) => {
 }
 
 export const populateWithBlogs = (users, blogs) => {
-	return users.map( u => {
-		let uBlogs = blogs.filter( b => b.user.id === u.id )
-		return { ...u, blogs: uBlogs }
-	})
-} 
+  return users.map( u => {
+    let uBlogs = blogs.filter( b => b.user.id === u.id )
+    return { ...u, blogs: uBlogs }
+  })
+}
 
 export const emptyObj = (obj) => Object.keys(obj).length === 0
 

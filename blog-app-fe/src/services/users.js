@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { postReq } from '../lib'
-
+// eslint-disable-next-line no-undef
 const baseUrl = `${process.env.BACKEND_URL}/api/users`
 
 const getAll = async () => {
@@ -9,7 +9,7 @@ const getAll = async () => {
 }
 
 const createUser = async (credentials) => {
-	const request = postReq(baseUrl, credentials);
+  const request = postReq(baseUrl, credentials)
   let response = await fetch(request)
   if (response.ok) {
     let json = await response.json()

@@ -1,7 +1,7 @@
 import {
-	React, useEffect, connect, Router, Route, Redirect, PropTypes, initializeBlogs, setNotification,
-	setToken, setUser, getUsers, Container, filterBlogs, Nav, UserList, BlogList, Notification,
-	LoginNav, LoginPage, SignupPage, BlogsPage, Blog, User
+  React, useEffect, connect, Router, Route, Redirect, PropTypes, initializeBlogs, setNotification,
+  setToken, setUser, getUsers, Container, Nav, UserList, Notification, LoginNav, LoginPage,
+  SignupPage, BlogsPage, Blog, User
 } from './imports'
 
 const App = (props) => {
@@ -11,8 +11,6 @@ const App = (props) => {
     setToken,
     setUser,
     login,
-    users,
-    blogs,
   } = props
 
   useEffect(() => {
@@ -34,25 +32,25 @@ const App = (props) => {
   if (login.token === '') {
     return (
       <Container>
-				<Router>
-					<Notification />
-					<LoginNav />
-					<header>
-						<h1>Favorite Blogs</h1>
-					</header>
-					<Route exact path='/' render={() => 
-						<main>
-							<LoginPage />
-						</main>
-					}>
-					</Route>
-					<Route path='/signup' render={() => 
-						<main>
-							<SignupPage />
-						</main>
-					}>
-					</Route>
-				</Router>
+        <Router>
+          <Notification />
+          <LoginNav />
+          <header>
+            <h1>Favorite Blogs</h1>
+          </header>
+          <Route exact path='/' render={() =>
+            <main>
+              <LoginPage />
+            </main>
+          }>
+          </Route>
+          <Route path='/signup' render={() =>
+            <main>
+              <SignupPage />
+            </main>
+          }>
+          </Route>
+        </Router>
       </Container>
     )
   }
@@ -79,9 +77,7 @@ const App = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    blogs: state.blogs,
     login: state.login,
-    users: state.users,
   }
 }
 
@@ -100,8 +96,6 @@ App.propsTypes = {
   setNotification: PropTypes.func.isRequired,
   getUsers: PropTypes.func.isRequired,
   login: PropTypes.object.isRequired,
-  users: PropTypes.array.isRequired,
-  blogs: PropTypes.array.isRequired,
 }
 
 export default connect(
