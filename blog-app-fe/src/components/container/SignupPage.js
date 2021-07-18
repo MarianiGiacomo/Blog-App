@@ -13,7 +13,7 @@ const SignupPage = props => {
       const newUser = await userService.createUser(getFieldsValues(username, name, password))
       setNotification({ message: `User with username ${newUser.username} created` }, 5)
     } catch (exception) {
-      setNotification({ error: `Could not create user: ${exception}` }, 5)
+      setNotification({ error: `Could not create user: ${exception.message}` }, 5)
     }
   }
 

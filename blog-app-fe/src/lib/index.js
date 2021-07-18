@@ -28,13 +28,3 @@ export const populateWithBlogs = (users, blogs) => {
 }
 
 export const emptyObj = (obj) => Object.keys(obj).length === 0
-
-export const postReq = (url, data) => {
-  return new Request(url, {
-    method: 'POST',
-    body: JSON.stringify(data),
-    headers: new Headers({
-      'Content-Type': 'application/json'
-    })
-  })
-}

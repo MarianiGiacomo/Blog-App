@@ -1,22 +1,17 @@
-import axios from 'axios'
-import { postReq } from '../lib'
+import { postReq, responseOrThrow } from './fetch'
+
 // eslint-disable-next-line no-undef
 const baseUrl = `${process.env.BACKEND_URL}/api/users`
 
 const getAll = async () => {
-  const response = await axios.get(baseUrl)
-  return response.data
+  const response = await fetch(baseUrl)
+  return await responseOrThrow(response)
 }
 
 const createUser = async (credentials) => {
   const request = postReq(baseUrl, credentials)
-  let response = await fetch(request)
-  if (response.ok) {
-    let json = await response.json()
-    return json
-  } else {
-    throw new Error(response.statusText)
-  }
+  const response = await fetch(request)
+  return await responseOrThrow(response)
 }
 
 export default { getAll, createUser }

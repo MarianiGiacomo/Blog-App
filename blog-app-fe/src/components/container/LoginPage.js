@@ -4,22 +4,19 @@ import { React, PropTypes, connect, LoginForm, useField, initializeBlogs, setTok
 function LoginPage(props) {
   const username = useField('text', 'username')
   const password = useField('password', 'password')
+  const { setToken, setUser, setNotification } = props
 
   const handleLogin = async (event) => {
     event.preventDefault()
     try {
       const user = await loginService.login(getFieldsValues(username, password))
-      window.localStorage.setItem(
-        'loggedBlogAppUser', JSON.stringify(user)
-      )
-      props.setToken(user.token)
-      props.setUser(user)
-      props.initializeBlogs()
+      window.localStorage.setItem('loggedBlogAppUser', JSON.stringify(user))
+      setToken(user.token)
+      setUser(user)
     } catch (exception) {
       username.setValue('')
       password.setValue('')
-      console.log('exception', exception)
-      props.setNotification({ error: 'wrong credentials' }, 5)
+      setNotification({ error: `Login failed: ${exception.message}` }, 5)
     }
   }
 
@@ -33,14 +30,12 @@ function LoginPage(props) {
 }
 
 const mapDispatchToProps =   {
-  initializeBlogs,
   setNotification,
   setToken,
   setUser,
 }
 
 LoginPage.propTypes = {
-  initializeBlogs: PropTypes.func.isRequired,
   setToken: PropTypes.func.isRequired,
   setUser: PropTypes.func.isRequired,
   setNotification: PropTypes.func.isRequired,

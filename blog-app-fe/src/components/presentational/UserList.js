@@ -1,13 +1,7 @@
-import { React, useEffect, connect, Link, PropTypes, Table, styles,
-  getUsers, initializeBlogs, populateWithBlogs } from '../../imports'
+import { React,connect, Link, PropTypes, Table, styles, populateWithBlogs } from '../../imports'
 
 const UserList = (props) => {
-  const { users, blogs, getUsers, initializeBlogs } = props
-
-  useEffect(() => {
-    initializeBlogs()
-    getUsers()
-  }, [users, blogs])
+  const { users, blogs } = props
 
   return (
     <main>
@@ -42,18 +36,12 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = {
-  getUsers,
-  initializeBlogs
-}
-
 UserList.propTypes = {
   users: PropTypes.array.isRequired,
   blogs: PropTypes.array.isRequired,
-  getUsers: PropTypes.func.isRequired,
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(UserList)

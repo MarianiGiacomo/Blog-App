@@ -1,45 +1,43 @@
-import axios from 'axios'
+import { postReq, putReq, deleteReq, responseOrThrow } from './fetch'
+
 // eslint-disable-next-line no-undef
 const baseUrl = `${process.env.BACKEND_URL}/api/blogs`
 
 const getAll = async () => {
-  const response = await axios.get(baseUrl)
-  return response.data
+  const response = await fetch(baseUrl)
+  return await responseOrThrow(response)
 }
 
 const create = async (token, newObject) => {
-  const config = {
-    headers: { Authorization: token },
-  }
-  const response = await axios.post(baseUrl, newObject, config)
-  return response.data
+	const request = postReq(baseUrl, newObject, token)
+	const response = await fetch(request)
+	return await responseOrThrow(response)
 }
 
 const update = async (id, newObject) => {
-  const response = await axios.put(`${baseUrl}/${id}`, newObject)
-  return response.data
+	const request = putReq(`${baseUrl}/${id}`, newObject) 
+	const response = await fetch(request)
+	return await responseOrThrow(response)
 }
 
 const remove = async (token, id) => {
-  const config = {
-    headers: { Authorization: token },
-  }
-  const response = await axios.delete(`${baseUrl}/${id}`, config)
-  return response
+	const request = deleteReq(`${baseUrl}/${id}`, token)
+	const response = await fetch(request)
+	return await responseOrThrow(response)
 }
 
 const getComments = async (id) => {
-  const response = await axios.get(`${baseUrl}/${id}/comments`)
-  return response.data
+  // const response = await axios.get(`${baseUrl}/${id}/comments`)
+  // return response.data 
+  const response = await fetch(`${baseUrl}/${id}/comments`)
+  return await responseOrThrow(response)
 }
 
 const createComment = async (token, newObject) => {
-  const config = {
-    headers: { Authorization: token },
-  }
   const blogId = newObject.blog
-  const response = await axios.post(`${baseUrl}/${blogId}/comments`, newObject, config)
-  return response.data
+	const request = postReq(`${baseUrl}/${blogId}/comments`, newObject, token)
+	const response = await fetch(request)
+	return await responseOrThrow(response)
 }
 
 export default {

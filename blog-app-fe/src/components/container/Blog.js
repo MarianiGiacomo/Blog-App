@@ -10,18 +10,36 @@ const Blog = (props) => {
     setNotification, getBlogComments, likeBlog, addComment } = props
 
   useEffect(() => {
-    if(!emptyObj(blog) && !removed) getBlogComments(blog)
+    if(!emptyObj(blog) && !removed) {
+			getComments()
+		}
   },[blog, comment])
 
   // On page load, after fetching blogs, get blog from url param.
   useEffect(() => {
-    if(blogs.length && emptyObj(blog)) {
+    if(blogs.length) {
       const foundBl = blogs.find(b => b.id === match.params.id)
       setBlog(foundBl)
     }
   },[blogs])
 
-  function remove(blog) {
+	async function getComments() {
+		try {
+			await getBlogComments(blog)
+		} catch (exception) {
+			setNotification({ error: `Could not fetch comments: ${exception.message}`}, 3)
+		}
+	}
+
+	async function like() {
+		try {
+			await likeBlog(blog)
+		} catch (exception) {
+			setNotification({ error: `Could not add like: ${exception.message}`}, 3)
+		}
+	}
+
+  function remove() {
     if(window.confirm(`Do you want to remove the blog ${blog.title} by ${blog.author}?`)) {
       try {
         removeBlog(login.token, blog)
@@ -63,11 +81,12 @@ const Blog = (props) => {
   else {
     return (
       <main>
-        <h1>{blog.title} by {blog.author}</h1>
+        <h1>{blog.title}</h1>
+				<h2>By {blog.author}</h2>
         <p><a href={blog.url} target='_blank' rel='noopener noreferrer' >{blog.url}</a></p>
         <p>Likes: {blog.likes}</p>
         <Button
-          onClick={() => likeBlog(blog)}
+          onClick={() => like()}
           style={styles.button}
         >Like
         </Button>
@@ -76,7 +95,7 @@ const Blog = (props) => {
           login.username === blog.user.username?
             <div>
               <Button
-                onClick={() => remove(blog)}
+                onClick={() => remove()}
                 style={styles.button}
               >Remove
               </Button>
@@ -86,7 +105,7 @@ const Blog = (props) => {
         <Togglable buttonLabel='Add comment'>
           <CommentForm comment={comment} handleSubmit={handleSubmit}/>
         </Togglable>
-        <h2>Comments</h2>
+        <h3>Comments</h3>
         <List divided relaxed>
           {
             comments.length?

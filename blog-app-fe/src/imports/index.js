@@ -18,6 +18,7 @@ export { default as BlogForm } from '../components/presentational/BlogForm'
 export { default as Blog } from '../components/container/Blog'
 export { default as BlogList } from '../components/presentational/BlogList'
 export { default as CommentForm } from '../components/presentational/CommentForm'
+export { default as LoggedInContent } from '../components/container/LoggedInContent'
 export { default as LoginForm } from '../components/presentational/LoginForm'
 export { default as LoginPage } from '../components/container/LoginPage'
 export { default as LoginNav } from '../components/presentational/LoginNav'
@@ -28,15 +29,15 @@ export { default as SignupPage } from '../components/container/SignupPage'
 export { default as SignupForm } from '../components/presentational/SignupForm'
 export { default as Togglable } from '../components/container/Togglable'
 export { default as User } from '../components/container/User'
-export { default as UserList } from '../components/container/UserList'
+export { default as UserList } from '../components/presentational/UserList'
 // External Components
-export { Button, Container, Form, List, Menu, Table } from 'semantic-ui-react'
+export { Button, Container, Form, List, Menu, Table, Modal } from 'semantic-ui-react'
 // Services
 export { default as loginService } from '../services/login'
 export { default as userService } from '../services/users'
 // Helper libs
 export {  useField } from '../hooks'
 export { filterBlogs, getFieldsValues, checkUrl, populateWithBlogs,
-  emptyObj, postReq } from '../lib'
+  emptyObj } from '../lib'
 // Styles
 export { default as styles } from '../style/styles'

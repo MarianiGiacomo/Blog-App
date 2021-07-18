@@ -1,4 +1,4 @@
-import { React, connect, styles } from '../../imports'
+import { React, connect, Modal, styles } from '../../imports'
 
 const Notification = (props) => {
 
@@ -19,9 +19,13 @@ const Notification = (props) => {
   }
 
   return (
-    <div className="notification" style={setStyle()}>
-      {message? message : error}
-    </div>
+		<Modal
+			open={error || message ? true : false}
+		>
+			<div className="notification" style={setStyle()}>
+				{message? message : error}
+			</div>
+		</Modal>
   )
 }
 
