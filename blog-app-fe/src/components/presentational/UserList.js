@@ -1,4 +1,4 @@
-import { React,connect, Link, PropTypes, Table, styles, populateWithBlogs } from '../../imports'
+import { React,connect, Link, PropTypes, Table, populateWithBlogs } from '../../imports'
 
 const UserList = (props) => {
   const { users, blogs } = props
@@ -6,7 +6,7 @@ const UserList = (props) => {
   return (
     <main>
       <h1>Users</h1>
-      <Table striped celled style={styles.table}>
+      <Table striped celled >
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Name</Table.HeaderCell>

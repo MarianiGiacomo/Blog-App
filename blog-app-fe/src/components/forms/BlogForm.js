@@ -1,4 +1,4 @@
-import { React, PropTypes, Form, Button, styles } from '../../imports'
+import { React, PropTypes, Form, Button } from '../../imports'
 
 function BlogForm(props) {
   const { handleSubmit, title, author, url, hide } = props
@@ -38,7 +38,7 @@ function BlogForm(props) {
           value={url.value}
           onChange={url.onChange}
         />
-        <Button type='submit' style={styles.button}>Save</Button>
+        <Button type='submit'>Save</Button>
       </Form>
     </div>
   )

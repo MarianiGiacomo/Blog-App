@@ -5,14 +5,14 @@ const Notification = (props) => {
   const message = props.notification.message
   const error = props.notification.error
 
-  const setStyle = () => {
-    if (message){
-      return styles.notificationMessage
-    } else if (error){
-      return styles.notificationError
-    }
-    return null
-  }
+  // const setStyle = () => {
+  //   if (message){
+  //     return styles.notificationMessage
+  //   } else if (error){
+  //     return styles.notificationError
+  //   }
+  //   return null
+  // }
 
   if (!message && !error) {
     return null
@@ -22,7 +22,7 @@ const Notification = (props) => {
 		<Modal
 			open={error || message ? true : false}
 		>
-			<div className="notification" style={setStyle()}>
+			<div className={`notification ${message ? "message" : "error"}`}>
 				{message? message : error}
 			</div>
 		</Modal>

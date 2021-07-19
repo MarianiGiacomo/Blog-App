@@ -1,5 +1,5 @@
 import { React, PropTypes, useState, useEffect, populateWithBlogs, connect, Redirect, emptyObj,
-  List, styles } from '../../imports'
+  List } from '../../imports'
 
 const User = (props) => {
   const [user, setUser] = useState({})
@@ -32,16 +32,14 @@ const User = (props) => {
         <List divided relaxed>
           {
             user.blogs.length
-              ?
-              user.blogs.map((b,i) =>
-                <List.Item key={i} style={styles.listLi}>
+              ? user.blogs.map((b,i) =>
+                <List.Item key={i} >
                   <p>{b.title}</p>
                   <p>by {b.author}</p>
                   <a href={b.url}>{b.url}</a>
                 </List.Item>
               )
-              :
-              <List.Item><p>No blogs yet</p></List.Item>
+              : <List.Item><p>No blogs yet</p></List.Item>
           }
         </List>
       </main>

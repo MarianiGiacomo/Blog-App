@@ -18,13 +18,13 @@ const SignupPage = props => {
   }
 
   return (
-    <>
+    <div className="card">
       <h2>Sign up</h2>
       <p>
 				&#10071;<strong>The created user will be automatically removed within 24 hours</strong>
       </p>
       <SignupForm handleSignup={handleSignup} username={username} name={name} password={password}/>
-    </>
+    </div>
   )
 }
 

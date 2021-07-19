@@ -14,19 +14,6 @@ function LoggedInContent(props) {
     fetchWithRetry(5)
   },)
 
-  async function fetchWithRetry(timeout) {
-    try {
-      await initializeBlogs()
-      await getUsers()
-      setLoading(false)
-    } catch (exception) {
-      setNotification({ error: `Could not fetch data: ${exception.message}. Retrying...` }, timeout-1)
-      setTimeout( () => {
-        fetchWithRetry(timeout)
-      }, timeout*1000)
-    }
-  }
-
   return (
     <div className='loggedin-content'>
       <Router>
@@ -34,9 +21,9 @@ function LoggedInContent(props) {
         <Notification />
         { loading
           ? <>
-            <div className="loader"></div>
-            <p>Fetching data...</p>
-          </>
+          	  <div className="loader"></div>
+          	  <p>Fetching data...</p>
+          	</>
           : null
         }
         <Route exact path='/' render={() => <BlogsPage /> }/>
@@ -50,6 +37,20 @@ function LoggedInContent(props) {
       </Router>
     </div>
   )
+
+  async function fetchWithRetry(timeout) {
+    try {
+      await initializeBlogs()
+      await getUsers()
+      setLoading(false)
+    } catch (exception) {
+      setNotification({ error: `Could not fetch data: ${exception.message}. Retrying...` }, timeout-1)
+      setTimeout( () => {
+        fetchWithRetry(timeout)
+      }, timeout*1000)
+    }
+  }
+
 }
 
 const mapStateToProps = (state) => {

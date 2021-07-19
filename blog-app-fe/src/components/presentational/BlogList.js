@@ -1,4 +1,4 @@
-import { React, connect, Link, PropTypes, Table, styles, filterBlogs } from '../../imports'
+import { React, connect, Link, PropTypes, Table, filterBlogs } from '../../imports'
 
 const BlogList = (props) => {
   const { blogs, login } = props
@@ -8,7 +8,7 @@ const BlogList = (props) => {
       <h2>Your blogs</h2>
       { filterBlogs(blogs, login).length
         ?
-        <Table striped celled style={styles.table}>
+        <Table striped celled >
           <Table.Body>
             {filterBlogs(blogs, login).sort((a, b) => a.likes - b.likes).map((blog, i) =>
               <Table.Row key={i}>
@@ -25,7 +25,7 @@ const BlogList = (props) => {
       <h2>All blogs</h2>
       { blogs.length
         ?
-        <Table striped celled style={styles.table}>
+        <Table striped celled >
           <Table.Body>
             {
               blogs.sort((a, b) => a.likes - b.likes).map((blog, i) =>

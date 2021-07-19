@@ -1,4 +1,4 @@
-import { React, PropTypes, Form, styles } from '../../imports'
+import { React, PropTypes, Form } from '../../imports'
 
 const SignupForm = (props) => {
   const { handleSignup, username, name, password } = { ...props }
@@ -39,7 +39,7 @@ const SignupForm = (props) => {
             onChange={password.onChange}
           />
         </Form.Group>
-        <Form.Button type='submit' style={styles.button}>Create</Form.Button>
+        <Form.Button type='submit'>Create</Form.Button>
       </Form>
     </>
   )

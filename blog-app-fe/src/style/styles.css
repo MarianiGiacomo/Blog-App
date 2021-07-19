@@ -1,10 +1,31 @@
 body {
-	background-color: #f5fff9;
+	background-color: #f3f3f3;
+}
+
+nav {	
+	background-color: #fefefe;
+}
+
+h1:first-child {
+	margin-top: 2%;
 }
 
 a {
 	text-decoration: underline;
 	color: blue !important; 
+}
+
+.card {
+	margin: 5% auto;
+	text-align: center;
+	width: max-content;
+	padding: 5%;
+	background-color: #fefefe;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.login-form, .signup-form {
+	display: inline-block;
 }
 
 .loader {
@@ -17,6 +38,19 @@ a {
   animation: spin 2s linear infinite;
 }
 
+table {
+	margin-bottom: 5%;
+}
+
+.ui.button {
+  margin: 0px 2px 8px 0px;
+  border: 1px solid #9b9b9b;
+}
+
+.list .item {
+	margin: 2% 0;
+}
+
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -25,3 +59,23 @@ a {
 .ui.form.login-form .field {
 	margin-top: 10px;
 }
+
+.notification.error { 
+  color: #8a0202;
+  background: #ffffff;
+  font-size: x-large;
+  border-style: solid;
+  border-radius: 2%;
+  padding: 2%;
+  margin: 3%;
+ }
+
+ .notification.message {
+  color: green;
+  background: #ffffff;
+  font-size: x-large;
+  border-style: solid;
+  border-radius: 2%;
+  padding: 2%;
+  margin: 3%,
+ }

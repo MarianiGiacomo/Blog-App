@@ -1,4 +1,4 @@
-import { React, useState, PropTypes, Button, styles } from '../../imports'
+import { React, useState, PropTypes, Button } from '../../imports'
 
 function Togglable(props) {
   const { buttonLabel, children } = props
@@ -14,10 +14,10 @@ function Togglable(props) {
       { visible ?
         <>
           { childrenWithProps }
-          <Button onClick={() => setVisible(!visible)} style={styles.button}>Cancel</Button>
+          <Button onClick={() => setVisible(!visible)} >Cancel</Button>
         </>
         :
-        <Button onClick={() => setVisible(!visible)} style={styles.button}>{buttonLabel}</Button>
+        <Button onClick={() => setVisible(!visible)} >{buttonLabel}</Button>
       }
     </div>
   )

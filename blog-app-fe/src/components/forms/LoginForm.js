@@ -1,7 +1,4 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Form } from 'semantic-ui-react'
-import styles from '../../style/styles'
+import { React, PropTypes, Form } from '../../imports'
 
 const LoginForm = (props) => {
   const { handleLogin, username, password } = { ...props }
@@ -20,6 +17,8 @@ const LoginForm = (props) => {
             value={username.value}
             onChange={username.onChange}
           />
+        </Form.Group>
+        <Form.Group>
           <Form.Input
             required
             label="Password"
@@ -30,7 +29,7 @@ const LoginForm = (props) => {
             onChange={password.onChange}
           />
         </Form.Group>
-        <Form.Button type='submit' style={styles.button}>Login</Form.Button>
+        <Form.Button type='submit'>Login</Form.Button>
       </Form>
     </>
   )

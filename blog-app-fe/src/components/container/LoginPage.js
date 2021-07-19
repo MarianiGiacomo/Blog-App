@@ -1,4 +1,4 @@
-import { React, PropTypes, connect, LoginForm, useField, initializeBlogs, setToken, setUser,
+import { React, PropTypes, connect, LoginForm, useField, setToken, setUser,
   setNotification, loginService, getFieldsValues } from '../../imports'
 
 function LoginPage(props) {
@@ -23,7 +23,9 @@ function LoginPage(props) {
   return (
     <>
       <main>
-        <LoginForm handleLogin={handleLogin} username={username} password={password}/>
+				<div className="card">
+					<LoginForm handleLogin={handleLogin} username={username} password={password}/>
+				</div>
       </main>
     </>
   )

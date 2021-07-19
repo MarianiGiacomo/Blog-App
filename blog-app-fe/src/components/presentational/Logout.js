@@ -1,16 +1,16 @@
-import { React, Button, styles } from '../../imports'
+import { React, Button } from '../../imports'
 
 const Logout = () => {
   return (
     <>
-      <Button onClick={handleLogout} style={styles.button}>Logout</Button>
+      <Button onClick={handleLogout} >Logout</Button>
     </>
   )
 }
 
 const handleLogout = () => {
   window.localStorage.clear()
-  window.location.reload()
+	window.location.href = window.location.origin
 }
 
 export default Logout

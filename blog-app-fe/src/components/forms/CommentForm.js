@@ -1,4 +1,4 @@
-import { React, PropTypes, Form, Button, styles } from '../../imports'
+import { React, PropTypes, Form, Button } from '../../imports'
 
 const CommentForm = (props) => {
   const { comment, handleSubmit, hide } = props
@@ -19,7 +19,7 @@ const CommentForm = (props) => {
           value={comment.value}
           onChange={comment.onChange}
         />
-        <Button type='submit' style={styles.button}>Save</Button>
+        <Button type='submit'>Save</Button>
       </Form>
     </div>
   )
